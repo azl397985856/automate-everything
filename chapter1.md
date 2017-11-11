@@ -33,6 +33,7 @@
 4. 前端打包代码，并将代码发送给后端。后端放到war包下。
 
 tomcat/conf/web.xml配置如下：
+
 ```xml
 <welcome-file-list>
 <welcome-file>index.html</welcome-file>
@@ -43,6 +44,19 @@ tomcat/conf/web.xml配置如下：
 
 将war文件直接复制到tomcat/webapps下
 
+我们后端使用的是java，具体做法：
 
-## 前后端
+* 如果是Intellij Idea,在导入前端项目之后，右键项目 add framework support --> web application，这时将会把前端项目转换为一个javaweb项目，然后将静态资源放在生成的web目录下即可。
+* 如果是eclipse，可以新建一个javaweb项目然后将静态资源放入web或者webcontent目录下，或者直接先导入前端项目，然后通过 project facts 将项目转换为dynamic web项目并勾选 js等相关配置。
+然后，运行项目时把后端的war包和前端的war包一同添加到 deployment中运行即可
+
+这一阶段我们实现了初步的前后端分离。 但是上述做法有两个问题。
+1. 由于上述的做法存在严重的问题在于前端对于发布控制力明显不足，比如版本控制不好做。 另外由于发布通常需要两个编译环境，即jdk编译后端代码，node环境编译前端代码。前端通常需要安装后端环境如jdk，后端也需要安装前端环境如node。不管是学习成本还是沟通成本都是一个问题。
+
+2. 前端通常需要等待后端给出测试数据后才能开工。所以我上面说“基本并行”
+
+由于存在上面的两个问题，我们进一步探索出了下面的前后端”分离“模式。
+
+## 前后端“分离”
+
 
