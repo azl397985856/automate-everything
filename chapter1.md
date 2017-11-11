@@ -58,5 +58,50 @@ tomcat/conf/web.xml配置如下：
 由于存在上面的两个问题，我们进一步探索出了下面的前后端”分离“模式。
 
 ## 前后端“分离”
+这一阶段我们通过nginx将前后端部署分离，通过mock服务器将前后端时间上的耦合给减少了。
+下面是我们的具体做法：
+1. 前后端约定接口
+2. 前端开发
+3. 后端开发（2和3完全并行）
+4. 前端打包，并将代码通过ftp上传到文件服务器。
+5. 配置nginx将静态请求代理到上面发布文件的文件服务器，后台接口代理到apache web server。
+
+nginx 配置 通常是这样的：
+
+```xml
+server {
+        listen       80;
+        server_name  example.com;
+
+        charset utf-8;
+
+        #access_log  logs/host.access.log  main;
+        
+        location / {
+              proxy_pass http://tomcat_pool;
+              proxy_redirect off;  
+              proxy_set_header HOST $host;  
+              proxy_set_header X-Real-IP $remote_addr;  
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;  
+              client_max_body_size 10m;  
+              client_body_buffer_size 128k;  
+              proxy_connect_timeout 90;  
+              proxy_send_timeout 90;  
+              proxy_read_timeout 90;  
+              proxy_buffer_size 4k;  
+              proxy_buffers 4 32k;  
+              proxy_busy_buffers_size 64k;  
+              proxy_temp_file_write_size 64k;  
+        }
+        
+        location ~ .*\.(html|htm|gif|jpg|jpeg|bmp|png|ico|txt|js|css|woff|woff2|ttf|eot|map)$  {     
+             root D:\Workspaces\front-end;
+             index index.html;
+        }
+```
+
+## 大厂的方案
+这里
+## 前后端分离的理想方式
 
 
