@@ -12,9 +12,14 @@
 * 第四部门主要讲述页面加载性能优化。 性能优化一直是一个非常古老，并且非常深奥的问题。说他古老是因为，我们的产品是让用户使用的，良好的用户体验是抓住用户内心的根本，因此性能优化方面，业界做了非常多的探索。说他非常深奥是因为没有任何一种优化手段可以cover 全部， 这就需要你能够靠你的经验和眼界分辨现实情况，采取合适的优化方法和时机（不要过早优化）。这部门主要讲述web性能优化，从用户输入URL到页面加载出来，用户进行交互着手分析可以优化的点，并讲述如何发现**系统性能的短板。** 建立性能监控平台也是非常重要的一环，本章也会带你一步步拆解，讲述如何设计并开发一个性能监控平台。
 
 [第一章 前后端分离](https://github.com/azl397985856/automate-everything/blob/master/chapter1.md)
-[https://github.com/azl397985856/automate-everything/blob/master/chapter2.md] (第二章 模块化与组件化)
-[https://github.com/azl397985856/automate-everything/blob/master/chapter3.md] (第三章 流程自动化)
-[https://github.com/azl397985856/automate-everything/blob/master/chapter4.md] (第四章 页面加载性能优化)
-[https://github.com/azl397985856/automate-everything/blob/master/appendix1.md] (附录一 自动化小脚本)
-[https://github.com/azl397985856/automate-everything/blob/master/appendix2.md] (附录二 参考文献)
+
+[第二章 模块化与组件化](https://github.com/azl397985856/automate-everything/blob/master/chapter2.md)
+
+[第三章 流程自动化](https://github.com/azl397985856/automate-everything/blob/master/chapter3.md
+
+[第四章 页面加载性能优化](https://github.com/azl397985856/automate-everything/blob/master/chapter4.md)
+
+[附录一 自动化小脚本](https://github.com/azl397985856/automate-everything/blob/master/appendix1.md)
+
+[附录二 参考文献](https://github.com/azl397985856/automate-everything/blob/master/appendix2.md)
 
