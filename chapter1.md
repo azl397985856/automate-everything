@@ -27,4 +27,22 @@
 最初在百世做前端的时候，我经历了前后端极度耦合的方式前后端虽然由不同的人来书写，那恰好也是我的领导首次尝试前后端分离模式，在此之前前后端通常都是一名后端人员来写的。这种模式虽然将前后端工作进行了切分，但是其耦合的成分还是非常大。
 
 首先我们来看下我们的具体做法。
+1. 前后端约定接口。
+2. 前端根据后端接口进行开发。
+3. 后端进行开发。（2与3基本并行）
+4. 前端打包代码，并将代码发送给后端。后端放到war包下。
+
+tomcat/conf/web.xml配置如下：
+```xml
+<welcome-file-list>
+<welcome-file>index.html</welcome-file>
+<welcome-file>index.htm</welcome-file>
+<welcome-file>index.jsp</welcome-file>
+</welcome-file-list>
+```
+
+将war文件直接复制到tomcat/webapps下
+
+
+## 前后端
 
