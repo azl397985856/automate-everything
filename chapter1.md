@@ -164,6 +164,52 @@ server {
 
 ```
 
+中间层可以做的事情非常多，除了我刚才说的服务端渲染，接口组合，mock数据，还可以做很多别的事。我在这里不会讲述ssr，接口组合，mock如何具体做，因为这不是本章的重点，而且也有很多最佳实践，我要说的是如何将这些“最佳实践“ 组合起来，如何在我们工作中将其应用起来，并且具有良好的扩展性。
+那么中间层拿到请求具体流程上面已经讲过了，现在我们以实战的角度，讲下代码该怎么组织。
+但是为了方便大家理解，我简单介绍下。 首先是服务端渲染，我以react+redux做服务端渲染讲解，为了简单起见，没有引入react-router，大家直接看代码理解：
+
+服务端：
+
+```html
+<body>
+    <div id="container"><%- html %></div>
+    <script>
+        window.__INITIAL_STATE__ = <%- JSON.stringify(initState) %>
+    </script>
+</body>
+```
+
+```js
+const store = buildStore(rootReducer, {});
+Promise.all([
+    store.dispatch(fetchUserInfo()),
+    store.dispatch(fetchPosts())
+])
+.then(()=>{
+    const html = renderToString(
+        <Provider store={store}>
+            <RouterContext {...renderProps}/>
+        </Provider>
+    )
+    const initState = store.getState();
+    res.render('index', html ,initState);
+})
+```
+
+客户端：
+
+```js
+const initState = window.__INITIAL_STATE__;
+const store = storeApp(initState);
+ReactDOM.render(
+    <Provider store={store}>
+       <Router history={browserHistory}>
+        {routesApp}
+       </Router>
+    </Provider>,
+    document.getElementById('container'));
+```
+
 ## 总结
 本章介绍了四种前后端分离的方式和阶段，这里需要强调的是并不是越往后的方式越好，问题的关键点还是选择合适的
 方式，根据当前所处阶段选择合适的分离方式，提高单体和整体作战效率才是明智之举。
