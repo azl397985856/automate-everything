@@ -156,6 +156,10 @@ server {
 
     proxy_pass      http://java-demo.io;
   }
+  location ~ .*\.(html|htm|gif|jpg|jpeg|bmp|png|ico|txt|js|css|woff|woff2|ttf|eot|map)$  {     
+       root D:\Workspaces\front-end;
+       index index.html;
+  }
 }
 
 ```
