@@ -213,6 +213,86 @@ ReactDOM.render(
 在这里我借鉴了微服务的理念，同时利用第二章节要讲模块化的思想，组织了中间层。
 那么究竟我是怎么设计的呢，请继续往下看。
 
+![图1.3](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE1.3.png)
+
+我们的关注点就是服务集群，如果需要增加集群就直接修改配置即可。
+下面基于docker + docker-compose + node + nginx 做一个**中间层系统**。
+
+docker-compose.yml
+
+```yml
+version: '2'
+
+services:
+    
+
+    nginx:
+        build: ./nginx
+        container_name: ms_nginx
+        links:
+            - posts
+            - users
+        ports:
+            - "80:80"
+
+    api:
+        build: ./api
+        container_name: ms_posts
+        environment:
+            - loglevel=none
+       
+        volumes:
+            - "./posts:/src/app"
+        working_dir: "/src/app"
+        ports:
+            - "8080:8080"
+            - "5858:5858"
+        # command: npm run start
+        command: npm run start:dev
+
+    sever-render:
+        build: ./sever-render
+        container_name: ms_sever-render
+        
+        volumes:
+            - "./users:/src/app"
+        working_dir: "/src/app"
+        command: npm start
+```
+nginx的配置
+
+```xml
+worker_processes 4;
+
+events { worker_connections 1024; }
+
+http {
+
+	server {
+	      listen 80;
+          charset utf-8;
+
+	      location / {
+		    proxy_pass http://serer-render:8080;
+	        proxy_http_version 1.1;
+	        proxy_set_header Upgrade $http_upgrade;
+	        proxy_set_header Connection 'upgrade';
+	        proxy_set_header Host $host;
+	        proxy_cache_bypass $http_upgrade;
+	      }
+
+		  location ~ ^/api {
+		    rewrite ^/api/(.*) /$1 break;
+	        proxy_pass http://users:8080;
+	        proxy_http_version 1.1;
+	        proxy_set_header Upgrade $http_upgrade;
+	        proxy_set_header Connection 'upgrade';
+	        proxy_set_header Host $host;
+	        proxy_cache_bypass $http_upgrade;
+	      }
+	}
+}
+```
 
 
 ## 总结
