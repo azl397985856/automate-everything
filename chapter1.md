@@ -118,7 +118,7 @@ server {
 上面的这种方法是非常高效的一种方式，但仍然不是我认为的理想的前后端分离方式。
 我认为理想的前后端分离方式是后端提供纯粹的接口，**只需要提供数据**-系统的数据或者根据根据二方库获取数据返回前端，剩下的逻辑前端做。
 这样由于后端提供元数据，前端只需要组合，前后端在逻辑和时间上没有了耦合。先来一张图来描述下：
-[图1.1](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE1.1.png)
+![图1.1](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE1.1.png)
 
 
 ## 总结
