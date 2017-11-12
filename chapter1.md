@@ -273,7 +273,7 @@ http {
           charset utf-8;
 
 	      location / {
-		    proxy_pass http://serer-render:8080;
+		    proxy_pass http://server-render:8080;
 	        proxy_http_version 1.1;
 	        proxy_set_header Upgrade $http_upgrade;
 	        proxy_set_header Connection 'upgrade';
@@ -293,6 +293,9 @@ http {
 	}
 }
 ```
+
+这样我们实现了不同的系统分流，并且彼此之间接触耦合，通过nginx 去 分发。这样还存在一个问题就是样板代码比较多，
+有没有一种方法，让我们只关注业务本身，而不需要样板代码呢？大家可以关注下 [faas](https://github.com/openfaas/faas), 这里不在赘述。
 
 
 ## 总结
