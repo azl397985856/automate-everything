@@ -27,6 +27,22 @@ js诞生的时候是没有模块化规范的，所有的代码都是在一个个
 
 ## 什么是组件化
 
+提到组件化，不得不提web-component。有了web-component代码就可以这么写：
+
+```
+<link rel="import" href="banner.html">
+<link rel="import" href="body.html">
+<link rel="import" href="footer.html">
+<template name="t-list">
+    <t-banner></t-banner>
+    <t-body></t-body>
+    <t-footer></t-footer>
+</template>
+
+```
+这样就可以通过分工提高开发效率，同时可以复用代码。代码也非常清爽。但是web-component 是一个新的标准，目前还没有很好的实现，浏览器支持性并不是很好。
+然后像react和 vue 这种 组件化思想的库可以实现类似web-compoennt的效果，尤其是vuejs。
+
 ## 模块化和组件化的好处
 
 ## 怎么合理划分模块和组件
