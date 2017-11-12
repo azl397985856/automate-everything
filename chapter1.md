@@ -119,8 +119,46 @@ server {
 我认为理想的前后端分离方式是后端提供纯粹的接口，**只需要提供数据**-系统的数据或者根据根据二方库获取数据返回前端，剩下的逻辑前端做。
 这样由于后端提供元数据，前端只需要组合，前后端在逻辑和时间上没有了耦合。先来一张图来描述下：
 ![图1.1](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE1.1.png)
+
 如图，后端只是提供原子数据，保证数据稳定输出就可以了，事实上保证系统稳定很多已经是运维再做的事了。前端需要根据需要进行接口整合，服务端渲染，mock数据等工作。
+那么整个流程具体是怎么工作的呢？ 可以下面这张图：
 ![图1.2](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE1.2.png)
+
+可以看出请求首先留到ngxin（反向代理），nginx判断是否是静态请求（html），如果是则转发到node服务器，node服务器会判断是否需要进行ssr，如果需要则调用后台接口拼装html，将**html和应用状态**一起返回给前端。 否过不需要ssr，则直接返回静态资源，并设置缓存信息。
+如果不是静态资源，判断头部信息（比如有一个自定义字段reselect: 'node' | ''），是否需要请求合并，如果需要则请求到node端，如果不需要直接转发给后端服务器。
+ngxin配置大概是这样：
+
+```xml
+map $reselect/node $reselect {
+  default "";
+  "node" "reselect/node";
+}
+
+server {
+  listen                    80;
+  server_name               demo.io;
+
+  charset                   utf-8;
+  autoindex                 off;
+
+  location / {
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Port $server_port;
+    proxy_set_header X-Forwarded-Ssl on;
+
+    if ($reselect="reselect/node"){
+      proxy_pass      http://node-demo.io;
+      break;
+    }
+
+    proxy_pass      http://java-demo.io;
+  }
+}
+
+```
 
 ## 总结
 本章介绍了四种前后端分离的方式和阶段，这里需要强调的是并不是越往后的方式越好，问题的关键点还是选择合适的
