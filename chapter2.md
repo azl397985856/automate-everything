@@ -19,6 +19,12 @@ js诞生的时候是没有模块化规范的，所有的代码都是在一个个
 
 随后各种模块化规范出现，比如commonjs，amd，umd。 又出现了很多包管理工具，比如bower，npm，browserify。前端模块化眼花缭乱，
 随后官方esma推出了模块化标准import/export， 至此js正式有了模块化官方规范。
+
+有了模块化，我们通常会这样组织代码：
+![图2.2](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE2.2.png)
+
+我们上层模块总是复用一些小的模块，小的模块依赖更小的模块。构成了一个精妙的层级网络，这很美妙。让我们享受模块的好处吧。
+
 ## 什么是组件化
 
 ## 模块化和组件化的好处
