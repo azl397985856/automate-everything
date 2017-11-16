@@ -85,6 +85,17 @@ SOA和micro service 的基本理念是将应用程序的不同功能单元（称
 > 为什么DOM操作比较昂贵？ 一方面DOM API 比较多，大家可以看下DOM的API就知道了，非常的多。另一方面，DOM操作通常伴随这浏览器的重排和重绘。大家可以这么理解，操作DOM就好像计算机操作硬盘。
 执行JS就好像计算机操作内存。
 
+拿react来举例，react的核心思路可以用下面的伪代码表示：
+
+```jsx
+	const oldTree = render(oldState, oldProps);
+	const newTree = render(newState, newProps);
+	
+	const patches = diff(oldTree, newTree) // 比较两棵树，计算patches
+	
+	doPatch(patches) // 根据patches应用补丁，将dom以”最小化“更新
+```
+
 可以看出react 封装了 dom操作， 将dom 创建（render）和 dom修改（doPactches）封装了起来，对开发者来说是透明的。 react 的思想是给定的state 和 props 渲染出相同或者相似的dom。 所以react 开发者的核心关注点从DOM 移到了 状态， 也因此诞生了很多状态管理框架， 比如官方的flux，以及类flux 框架， reflux 和redux。 以及vuejs 配套的vuex。这也是众多数据管理框架越来越火爆的原因，比如mobx（MobX 是一个经过战火洗礼的库，它通过透明的函数响应式编程(transparently applying functional reactive programming - TFRP)使得状态管理变得简单和可扩展）和 rxjs（RxJS 是使用 Observables 的响应式编程的库，它使编写异步或基于回调的代码更容易）
 
 > jquery 将 开发者从DOM 复杂的API 和浏览器兼容性泥潭中拉了出来。 而数据管理框架将开发者彻底从DOM 关注 点中解放出来了。
