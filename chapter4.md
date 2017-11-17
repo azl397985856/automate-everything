@@ -77,12 +77,24 @@ var duration = new Date().getTime() - startLoad();
 通过这种方法未免太麻烦，还在浏览器performance api 提供了很多有用的接口，方便大家计算各种性能指标。下面performance api 会详细讲解。
 
 2. 首屏加载时间
-3. 完全加载时间 
-
-用户可以进行正常的事件输入交互操作
+我们所说的首屏时间，就是指用户在没有滚动时候看到的内容渲染完成并且可以交互的时间。至于加载时间，则是整个页面滚动到底部，所有内容加载完毕并可交互的时间。用户可以进行正常的事件输入交互操作
 
 ```js
-domContentLoadedEventEnd - navigationStart
+
+firstscreenready - navigationStart
+
+```
+这个时间就是用户实际感知的网站快慢的时间。
+3. 完全加载时间 
+通常网页以两个事件的触发时间来确定页面的加载时间.
+
+1. DOMContentLoaded 事件，表示直接书写在HTML页面中的内容但不包括外部资源被加载完成的时间，其中外部资源指的是css、js、图片、flash等需要产生额外HTTP请求的内容。
+2. onload 事件，表示连同外部资源被加载完成的时间。
+
+```
+
+domComplete - domLoading
+
 ```
 
 ### Performance API
