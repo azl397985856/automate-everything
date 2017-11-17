@@ -92,12 +92,16 @@ domContentLoadedEventEnd - navigationStart
 > ------ 摘自MDN
   
   在浏览器console中输入performance.timing
+  
 
 ![图4.2](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE4.2.png)
 
+
 返回的各字节跟下面的performance流程的各状态一一对应，并返回时间。
 
+
 ![图4.3](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE4.3.png)
+
 
 > performance api 更多介绍请查看 https://developer.mozilla.org/en-US/docs/Web/API/Performance
 
