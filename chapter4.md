@@ -85,7 +85,8 @@ firstscreenready - navigationStart
 
 ```
 
-这个时间就是用户实际感知的网站快慢的时间。firstscreenready 没有这个 performance api， 而且不同的渲染手段（服务端渲染和客户端渲染计算方式也不同），不能一概而论。具体计算方案，这边文章写得挺详细的。[http://www.alloyteam.com/2016/01/points-about-resource-loading/](首屏时间计算)
+这个时间就是用户实际感知的网站快慢的时间。firstscreenready 没有这个 performance api， 而且不同的渲染手段（服务端渲染和客户端渲染计算方式也不同），不能一概而论。具体计算方案，这边文章写得挺详细的。[首屏时间计算](http://www.alloyteam.com/2016/01/points-about-resource-loading/)
+
 3. 完全加载时间 
 通常网页以两个事件的触发时间来确定页面的加载时间.
 
