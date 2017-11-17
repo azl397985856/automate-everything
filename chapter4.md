@@ -102,6 +102,8 @@ domContentLoadedEventEnd - navigationStart
 
 ![图4.3](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE4.3.png)
 
+有了这个performance api 我们可以很方便的计算各项性能指标。并且我们可以自定义一些我们关心的指标，比如请求时间（成功和失败分开统计），较长js操作时间，或者比较重要的功能等。总之，只要我们想要统计的，我们都可以借助performance api 轻松实现。
+
 
 > performance api 更多介绍请查看 https://developer.mozilla.org/en-US/docs/Web/API/Performance
 
