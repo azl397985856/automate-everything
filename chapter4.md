@@ -86,6 +86,20 @@ domContentLoadedEventEnd - navigationStart
 ```
 
 ### Performance API
+上面介绍了古老的方法测量关键指标，主要原理就是基于浏览器从上到下加载的原理。只是上面的方法比较麻烦，不适合实际项目中使用。 实际项目中还是采用打点的方式。 即在关键的地方埋点，然后根据需要将打点信息进行计算得到我们希望看到的各项指标，performance api 就是这样一个东西。
+
+> The Performance interface provides access to performance-related information for the current page. It's part of the High Resolution Time API, but is enhanced by the Performance Timeline API, the Navigation Timing API, the User Timing API, and the Resource Timing API.          
+> ------ 摘自MDN
+  
+  在浏览器console中输入performance.timing
+
+![图4.2](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE4.2.png)
+
+返回的各字节跟下面的performance流程的各状态一一对应，并返回时间。
+
+![图4.3](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE4.3.png)
+
+> performance api 更多介绍请查看 https://developer.mozilla.org/en-US/docs/Web/API/Performance
 
 ## 性能监测的手段
 
