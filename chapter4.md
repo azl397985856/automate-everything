@@ -42,7 +42,50 @@ body
 
 
 ### 几个关键的指标
+1. 白屏时间
 
+用户从打开页面开始到有页面开始呈现为止。白屏时间长是无法忍受的，因此有了很多的缩短白屏时间的方法。 比如减少首屏加载内容，首屏内容渐出等。白屏的测量方法最古老的方法是这样的：
+
+```html
+<head>
+<script>
+var t = new Date().getTime();
+</script>
+<link src="">
+<link src="">
+<link src="">
+
+<script>
+tNow = new Date().getTime() - t;
+</script>
+</head> 
+```
+
+通过类似的方法我们还可以查看图片等其他资源的加载时间，以图片为例：
+
+```js
+<img src="xx" id="test" />
+<script>
+var startLoad = new Date().getTime()
+document.getElementById('test').addEventListener('load', function(){
+var duration = new Date().getTime() - startLoad();
+}, false)
+</script>
+
+```
+
+通过这种方法未免太麻烦，还在浏览器performance api 提供了很多有用的接口，方便大家计算各种性能指标。下面performance api 会详细讲解。
+
+2. 首屏加载时间
+3. 完全加载时间 
+
+用户可以进行正常的事件输入交互操作
+
+```js
+domContentLoadedEventEnd - navigationStart
+```
+
+### Performance API
 
 ## 性能监测的手段
 
