@@ -92,6 +92,7 @@ firstscreenready - navigationStart
 通常网页以两个事件的触发时间来确定页面的加载时间.
 
 3.1. DOMContentLoaded 事件，表示直接书写在HTML页面中的内容但不包括外部资源被加载完成的时间，其中外部资源指的是css、js、图片、flash等需要产生额外HTTP请求的内容。
+
 3.2. onload 事件，表示连同外部资源被加载完成的时间。
 
 ```
