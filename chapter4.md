@@ -33,6 +33,7 @@ body
 
 7. 前端根据相应的内容，下载文档（content download），并对文档进行解析。解析的过程如下所示：
 
+![图4.1](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE4.1.png)
 
 ## 浏览器性能指标
 
