@@ -124,6 +124,21 @@ SOA和micro service 的基本理念是将应用程序的不同功能单元（称
 > jquery 将 开发者从DOM 复杂的API 和浏览器兼容性泥潭中拉了出来。 而数据管理框架将开发者彻底从DOM 关注 点中解放出来了。
 
 4. MNV*
+前面说了，前端的工作就是和DOM打交道。 这一说法在MNV* 面前显得不是那么确切。MNV*真正将开发者脱离DOM，从令人诟病的DOM操作中完全解脱，并且不借助DOM实现原生的体验。目前很多大公司的核心APP 都是基于这种混合式开发完成，比如支付宝，微信，钉钉等等。这种开发方式的好处结合了H5开发的速度和原生开发的性能的优势。
+这种开发模式的原理很简单，在原生APP中嵌入webview并基于一定的协议，完成客户端和H5页面的双向通信。做过flex的人可能知道，flex可以将flex内部应用通过接口暴漏给window对象，js通过window对象访问flex中的方法。同时flex可以调用window上的方法，从而实现flex和js的双向绑定。而MVN*的交互模式有点类似，H5和Native直接的交互基于的是名字叫JSBridge的东西。
+
+记得在15年本科没毕业的时候，我的讲师跟我们介绍过一个名字叫PhoneGap的东西，其实它就是在web基础上包了一层Native，然后通过Bridge技术使得js可以调用视频，音频，GPS，拍照等原生的功能。要进一步了解JSBridge，需要大家懂一点IOS和Android的相关知识。我给大家普及一点基础的IOS和Android的知识。
+
+IOS有一个叫UIWebView的东西，这个东西就像是一个浏览器一样，有浏览器的基本功能，同时还可以调用一些原生的API，比如GPS定位。需要特别注意的是Safari浏览器使用的浏览器的控件和UIwebView并不是同一个，两者在性能上有一定的差距。IOS调用webviewjs代码是通过这样实现的：
+
+```js
+
+webview.stringByEvaluatingJavaScriptFromString
+
+```
+可以看出它和flex如出一辙，都是通过暴漏在window上的方法操作webview。 实际项目中通常将window上挂在一个对象专门存在此类操作，比如window.webview
+
+上面讲了Native调用js，那么js如何调用Native呢？其实js调用Native是基于一个事件代理。 webview中所有的请求都会经过native中一个代理类，代理类进行拦截，如果是约定的格式（如调用原生方法）就解析，并调用原生方法。如果是其他的请求则放行。
 
 ### 模块和组件的划分依据
 
