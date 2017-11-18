@@ -138,7 +138,49 @@ webview.stringByEvaluatingJavaScriptFromString
 ```
 可以看出它和flex如出一辙，都是通过暴漏在window上的方法操作webview。 实际项目中通常将window上挂在一个对象专门存在此类操作，比如window.webview
 
-上面讲了Native调用js，那么js如何调用Native呢？其实js调用Native是基于一个事件代理。 webview中所有的请求都会经过native中一个代理类，代理类进行拦截，如果是约定的格式（如调用原生方法）就解析，并调用原生方法。如果是其他的请求则放行。
+上面讲了Native调用js，那么js如何调用Native呢？其实js调用Native是基于一个事件代理。 webview中所有的请求都会经过native中一个代理类，代理类进行拦截，如果是约定的格式（如调用原生方法）就解析，并调用原生方法。如果是其他的请求则放行。通常是下面的格式：
+
+```js
+
+jsbridge://class?callback/method?param1=value1&param2=value2
+
+```
+
+比如H5要实现一个原生的toast功能，可以这么去写：
+
+```
+var url = 'jsbridge://feedback?onSuccess=xxx&onFail=xxxx/doToast?icon=图标&title=文字';  
+var iframe = document.createElement('iframe');  
+iframe.style.width = '0px';  
+iframe.style.height = '0px';  
+iframe.style.display = 'none';  
+iframe.src = url;  
+document.body.appendChild(iframe);  
+setTimeout(function() {  
+    iframe.remove();
+}, 0);
+
+```
+
+
+安卓的交互模式大同小异。知道了交互的具体原理，那么对于不同端（IOS，Android）需要不同的方法。那么这时候去建立一个中间层做统一，通常是前端的js-api形式存在。比如钉钉的做法是引入 dingtalk-promise-lwp.js 将native 调用方法封装成一个简单的类库，并且屏蔽了不同端的差异。
+
+还是以toast为例,代码如下：
+
+```js
+
+dd.device.notification.toast({
+    type: "information", //toast的类型 alert, success, error, warning, information, confirm
+    text: '这里是个toast', //提示信息
+    duration: 3, //显示持续时间，单位秒，最短2秒，最长5秒
+    delay: 0, //延迟显示，单位秒，默认0, 最大限制为10
+    onSuccess : function(result) {
+        /*{}*/
+    },
+    onFail : function(err) {}
+})
+
+```
 
 ### 模块和组件的划分依据
 
