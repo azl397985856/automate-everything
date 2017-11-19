@@ -175,4 +175,63 @@ domComplete - domLoading
 我们已经产出了日志，有了日志数据源。那么如何消费数据呢？ 现在普遍的做法是服务端将收集的日志进行转储，并通过可视化手段（图标等）展示给管理员。还有一种是用户自己消费，即自产自销。用户产生数据，同时自己消费，提供更加的用户体验。 详情查阅 [locus](https://github.com/azl397985856/locus)
 ### 性能监测平台
 监控平台大公司基本都有自己的系统。比如有赞的Hawk，阿里的SunFire。小公司通常都是使用开源的监控系统或者干脆没有。 我之前的公司就没有什么监控平台，最多只是阿里元提供的监控数据而已。所以我在这一方面做了一定的探索。并开始开发[朱雀平台](https://github.com/azl397985856/zhuque)，但是限于精力有限，该计划最后没有付出实践，还是蛮可惜的。性能监测的本质是基于监测的数据，提供方便的查询和可视化的统计。并对超过临界值（通常还有持续时长限制）发出警告。
+上一节介绍了性能监控平台，提到了性能监控平台的两个组成部分，一个是生产者一个是消费者。 这节介绍如何搭建一个监控平台。那么我先来看下整体的架构
+
+![图4.4](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE4.4.png)
+
+为了方便讲解，这里只实现一个最简化的模型，读者可以在此基础上进一步划分子系统，比如接入SSO，存储展示分离等。
+
+#### 客户端
+客户端一方面上报埋点信息，另一方面上报轨迹信息。 
+
+##### 上报埋点信息
+
+这一部分主要借助一些手段，比如performance api 将网页相关加载时间信息上报到后端。
+
+```js
+performance.getEntriesByType("resource").forEach(function(r) {
+    console.log(r.name + ": " + r.duration)
+})
+
+```
+
+另一方面对特定的异步请求接口，打点。对用户所有的交互操作打点（点击，hover等）
+
+```js
+
+const startTime = new Date().getTime();
+
+fetch(url)
+.then(res => {
+   const endTime = new Date().getTime();
+   report(url , 'success', endTime - startTime);
+})
+.catch(err => {
+	const endTime = new Date().getTime();
+	report(url, 'failure', endTime - startTime);
+})
+
+```
+
+##### 上报轨迹信息
+
+上传轨迹信息就简单了。如果是页面粒度，直接在页面上报就可以了。如果使用了前端路由，还可以在路由的钩子函数中进行上报。
+
+
+```js
+pageA.js
+
+// 上报轨迹
+report('pageA',{userId: '876521', meta: {}})
+
+```
+
+这样我们就有了数据源了。
+
+#### 服务端
+服务端已经有了数据，后端需要将数据进行格式化，并输出。
+
+##### locus server
+
+##### zhuque server
 ## 性能优化的手段
