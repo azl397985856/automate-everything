@@ -180,7 +180,41 @@ dd.device.notification.toast({
     onFail : function(err) {}
 })
 
+
+
 ```
+
+5. Native
+
+上面讲述了hybrid app实现了js调用原生模块的功能。本质上H5应用还是运行在webview中，通常一些模块还是基于DOM的，即使是原生模块也是基于代理的方式将js和 native联系在一起。 而Native 的方式则大又不同，它本质上就是Native，因此性能上又比hybrid好很多。比如广为人知的react native（以下简称RN） 和 weex，RN本质上是以React的方式书写代码，然后通过RN这一个中间层，将React转化并调用为原生Native代码，反之亦然。当然RN也可以退化到hybrid的实现方式，即以webview作为桥接层，很多为了兼容性都是这么做的。
+
+RN 将原生模块通过导出供React使用,以下是RN官网示例代码：
+
+```java
+@Override
+  public List<NativeModule> createNativeModules(
+                              ReactApplicationContext reactContext) {
+    List<NativeModule> modules = new ArrayList<>();
+
+    modules.add(new ToastModule(reactContext));
+
+    return modules;
+  }
+
+```
+
+```js
+import { NativeModules } from 'react-native';
+module.exports = NativeModules.ToastExample;
+```
+
+
+```
+import ToastExample from './ToastExample';
+
+ToastExample.show('Awesome', ToastExample.SHORT);
+```
+
 ### 技术架构演进给我们的启示
 技术架构在不断的演进，我们的目录结构，代码层次，公共逻辑抽离都不一样，我们看待问题的方式就要不断演进，架构也要不断演进。
 那么架构发展中不变量是什么？如何根据不变量来规划软件架构？要回答这个问题，首先要明白软件开发的核心关注点，这个问题比较宽泛。那么
