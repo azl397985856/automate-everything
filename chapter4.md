@@ -251,12 +251,14 @@ report('pageA',{userId: '876521', meta: {}})
 结构层指的是DOM结构，而DOM结构**通常**是由HTML结构决定的,因此我们主要分析下HTML结构的性能优化点。
 我们知道DOM操作是非常昂贵的，这在前面讲述前端发展历史的时候也提到了。如何减少DOM数量，减少DOM操作是优化需要
 重点关注的地方。
-#### AMP
-说到HTML优化，不得不提AMP。
+#### AMP HTML
+说到HTML优化，不得不提AMP HTML。
+AMP的核心思想是提供移动端更佳的用户体验。，由AMP HTML， AMP JS 和 AMP Cache 三个核心部分组成。
 
 > AMP HTML is HTML with some restrictions for reliable performance.
 
 下面是典型的AMP HTML
+
 ```html
 <!doctype html>
 <html ⚡>
@@ -277,7 +279,6 @@ img之所以比较慢的原因是图片下载虽然是异步的，但是会占�
 
 #### 减少没有必要的嵌套
 
-#### AMP
 
 ### 表现层
 
