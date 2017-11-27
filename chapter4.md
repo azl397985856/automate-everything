@@ -253,7 +253,7 @@ report('pageA',{userId: '876521', meta: {}})
 重点关注的地方。
 #### AMP HTML
 说到HTML优化，不得不提AMP HTML。
-AMP的核心思想是提供移动端更佳的用户体验。，由AMP HTML， AMP JS 和 AMP Cache 三个核心部分组成。
+AMP的核心思想是提供移动端更佳的用户体验，。由AMP HTML， AMP JS 和 AMP Cache 三个核心部分组成。
 
 > AMP HTML is HTML with some restrictions for reliable performance.
 
@@ -278,8 +278,28 @@ img之所以比较慢的原因是图片下载虽然是异步的，但是会占�
 回到刚才AMP HTML， 其实在amp 中 有一个amp-image这样的接口，大概可以根据需要自己实现，上面我们说的x-image 其实就是实现了amp接口规范的组件。
 
 #### 减少没有必要的嵌套
+前面说到了尽可能使用轻元素。那么除了使用轻元素，还有一点也很重要，就是减少DOM数量。减少DOM数量的一个重要的途径就是减少冗余标签。比如我们通过新增加一个元素清除浮动。
+```html
+<div class="clear"></div>
+```
+不过目前都是采用伪元素实现了。另一个途径是减少嵌套层次。很多人都会在<form>或者<ul>外边包上<div>标签，为什么加上一个你根本不需要的<div>标签呢？实际上你完全可以用CSS selector，实现同样的效果。 重要的是，这种代码我见过很多。
+	
+```html
+<div class="form">
+	<form>
+	...
+	</form>
+</div>
+```
 
+完全可以这样写:
 
+```html
+<form class="form">
+	...
+</form>
+
+```
 ### 表现层
 
 ### 行为层
