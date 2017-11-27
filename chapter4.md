@@ -243,5 +243,45 @@ report('pageA',{userId: '876521', meta: {}})
 
 ##### zhuque server
 ## 性能优化的手段
-要做性能优化，首先要对系统运行的过程有一个完整的理解，然后从各个环节分析，找到系统瓶颈，从而进行优化。在这里我不罗列性能优化的各种手段，二是从前端三层角度逐个描述下性能优化的常见优化方向和手段。如果大家希望有一个完整的优化清单， 这里有一份比较完整的[Front-End-Checklist](https://github.com/thedaviddias/Front-End-Checklist)。对于性能优化，有一定的借鉴意义。
+要做性能优化，首先要对系统运行的过程有一个完整的理解，然后从各个环节分析，找到系统瓶颈，从而进行优化。在这里我不罗列性能优化的各种手段，而是从前端三层角度逐个描述下性能优化的常见优化方向和手段。如果大家希望有一个完整的优化清单， 这里有一份比较完整的[Front-End-Checklist](https://github.com/thedaviddias/Front-End-Checklist)，对于性能优化，有一定的借鉴意义。
+
+很多人都知道，前端将应用分为三层，分别是结构层，表现层和行为层。我们就从三层角度讲一下性能优化的方向。
+
+### 结构层
+结构层指的是DOM结构，而DOM结构**通常**是由HTML结构决定的,因此我们主要分析下HTML结构的性能优化点。
+我们知道DOM操作是非常昂贵的，这在前面讲述前端发展历史的时候也提到了。如何减少DOM数量，减少DOM操作是优化需要
+重点关注的地方。
+#### AMP
+说到HTML优化，不得不提AMP。
+
+> AMP HTML is HTML with some restrictions for reliable performance.
+
+下面是典型的AMP HTML
+```html
+<!doctype html>
+<html ⚡>
+ <head>
+   <meta charset="utf-8">
+   <link rel="canonical" href="hello-world.html">
+   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+   <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style><noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
+   <script async src="https://cdn.ampproject.org/v0.js"></script>
+ </head>
+ <body>Hello World!</body>
+</html>
+```
+可以看出AMP HTML由普通的HTML标签和amp标签组成。amp标签是做什么呢？且听我跟你说，DOM虽然操作比较昂贵，但是不同的DOM效率也是不意义的。比如渲染一个a标签和渲染一个img或者table时间肯定不是一样的。我们称a标签这样渲染较快的元素为轻元素，称table，img这样的元素为重元素。那么我们就应该尽量避免重元素的出现，比如table 可以采用ul li 实现。
+img之所以比较慢的原因是图片下载虽然是异步的，但是会占用网络线程，同时会多发一个请求（浏览器并发请求数是有限制的），因此可以进一步封装称轻元素（比如x-image，组件内部可以延迟发送图片请求，等待主结构渲染完毕再发图片请求）。 可以考虑将其封装为web-component或者其他组件形式（如react组件）
+
+回到刚才AMP HTML， 其实在amp 中 有一个amp-image这样的接口，大概可以根据需要自己实现，上面我们说的x-image 其实就是实现了amp接口规范的组件。
+
+#### 减少没有必要的嵌套
+
+#### AMP
+
+### 表现层
+
+### 行为层
+
+
 
