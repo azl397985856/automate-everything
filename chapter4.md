@@ -243,3 +243,5 @@ report('pageA',{userId: '876521', meta: {}})
 
 ##### zhuque server
 ## 性能优化的手段
+要做性能优化，首先要对系统运行的过程有一个完整的理解，然后从各个环节分析，找到系统瓶颈，从而进行优化。在这里我不罗列性能优化的各种手段，二是从前端三层角度逐个描述下性能优化的常见优化方向和手段。如果大家希望有一个完整的优化清单， 这里有一份比较完整的[Front-End-Checklist](https://github.com/thedaviddias/Front-End-Checklist)。对于性能优化，有一定的借鉴意义。
+
