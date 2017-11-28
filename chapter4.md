@@ -388,10 +388,11 @@ function factorial(n) {
   if (n === 1) return 1;
   return n * factorial(n - 1);
 }
-factorial(1000) // 有可能爆栈
+factorial(100) // 一切正常
+factorial(1000) // 有可能爆栈，但是现在浏览器做了优化，通常会输出Infinite
 }
 ```
-
+如果在这里你使用了比较复杂的运算情况就会变糟，如果再加上闭包就更糟糕了。
 #### 闭包
 由于js没有私有属性，js如果要实现私有属性的功能，就要借助闭包实现。
 
