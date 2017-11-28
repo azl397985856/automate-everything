@@ -313,6 +313,33 @@ ES6（也就是ES2015），因为ES5是2009年发布的，之后过了6年，也
 毫不夸张的说，目前前端项目绝大多数代码都是javascript。既然js用的这么多，为什么很少有人谈js性能优化呢？ 一是因为现在工业技术的发展，硬件设备的性能提升，导致前端计算性能通常不认为是一个系统的性能瓶颈。二是随着V8引擎的发布，js执行速度得到了很大的提升。三是因为计算性能是本地CPU和内存的工作，其相对于网路IO根本不是一个数量级，因此人们更多关注的是IO方面的优化。那么为什么还要将js性能优化呢？一方面是目前前端会通过node做一些中间层，甚至是后端，因此需要重点关注内存使用情况，这和浏览器是大相径庭的。另一方面是因为前端有时候也会写一个复杂计算，也会有性能问题。 最后一点是我们是否可以通过JS去优化网络IO的性能呢，比如使用JS API 操作 webWorker 或者使用localStorage缓存。
 
 #### 计算缓存
+前端偶尔也会有一些数据比较大的计算。 对于一些复杂运算，通常我们会将计算结果进行缓存，以供下次使用。前面提到了纯函数的概念，要想使用计算缓存，就要求函数要是纯函数。一个简单的缓存函数代码如下：
+
+```js
+
+// 定义
+function memoize(func) {
+  var cache = {};
+  var slice = Array.prototype.slice;
+
+  return function() {
+    var args = slice.call(arguments);
+
+    if (args in cache)
+      return cache[args];
+    else
+      return (cache[args] = func.apply(this, args));
+
+  }
+}
+// 使用
+function cal() {}
+const memoizeCal = memoize(cal);
+
+memoizeCal(1) // 计算，并将结果缓存
+memoizeCal(1) // 直接返回
+
+```
 
 #### 网络IO缓存
 
