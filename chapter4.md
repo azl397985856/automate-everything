@@ -368,9 +368,13 @@ function cachedFetch(url, options) {
 const orders = [{name: 'john', price: 20}, {name: 'john', price: 10}, ....]
 
 ```
-我需要频繁地查找其中某个人的订单信息。 
+我需要频繁地查找其中某个人某天的订单信息。 我们可以采取如下的数据结构：
 
 ```js
-
+ const mapper = {
+   'john|2015-09-12': []
+ }
 ```
+这样我们查找某个人某天的订单信息速度就会变成O(1)，也就是常数时间。
+
 #### 内存泄漏
