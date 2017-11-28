@@ -266,6 +266,59 @@ web-components就是组件化思想的官网表现。
 
 > 为一般逻辑编码，为特殊逻辑配置。
 
+我们平时工作中会使用一些设计模式，这些设计模式就是对具体业务逻辑进行抽象和提炼的结果。比如我们经常碰到同一时刻，同类型的Modal只能出现一个的需求。我们对这样的需求进行提炼，发现还有很多类似的逻辑。虽然它们本身所处的环境各不相同，但是我们可以将其中共性提炼出来，这就形成了单例模式。再比如我们现在要做 一个社保计算的功能，每一个省份的计算方式都不同，我们如何设计这个系统 ？ 
+先看下一般的写法：
+
+```js
+
+function getHenanSocialInsurance(salary){
+	return salary * .4;
+}
+
+function getHebeiSocialInsurance(salary){
+ 	return salary * .2;
+}
+const calSocialInsurance = (province, salary) => {
+   let socialInsurance = 0;
+   if (province === 'henan') {
+    socialInsurance = getHenanSocialInsurance(salary);
+   } else if (province === 'hebei') {
+    // do something
+    socialInsurance = getHebeiSocialInsurance(salary);
+   }
+   // ....
+   
+   return socialInsurance;
+}
+
+
+```
+
+再来看下策略模式：
+
+```js
+
+// 封装的策略类
+var strategies={
+    "henan":function (salary) {
+        return salary * .4;
+    },
+    "hebei":function (salary) {
+        return salary * .2;
+    },
+};
+
+
+// 调用方
+var calSocialInsurance= (province, salary) => {
+    return strategies[province](salary);
+};
+
+
+```
+
+其实生活中还有很多类似的场景，我们对这样的场景进一步抽象，提炼出策略模式。为通用过程先编码，具体算法设计不同的实现，由调用方决定使用哪种策略（算法）。
+
 #### 保持模块和组件的纯粹性
 
 ##### 纯函数
