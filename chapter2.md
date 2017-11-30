@@ -225,7 +225,7 @@ ToastExample.show('Awesome', ToastExample.SHORT);
 
 如何划分结构，如何组织页面。前端发展前期，页面结构划分的方式就是div，”前端“将一个个组件通过div构建出来，复用性几乎不存在。
 随着技术进一步发展，组件的思想深入人心，人们通过组件描述应用的结构，将程序看作是一个个组件组成，进而有了一大批关于组件化开发的best pratice。
-web-components就是组件化思想的官网表现。
+web-components就是组件化思想的官方表现。
 
 2. 页面样式
 
