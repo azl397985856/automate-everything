@@ -412,6 +412,48 @@ const orders = [{name: 'john', price: 20}, {name: 'john', price: 10}, ....]
 #### 多线程计算
 通过HTML5的新API webworker，使得开发者可以将计算转交给worker进程，然后通过进程通信将计算结果回传给主进程。毫无疑问，这种方法对于需要大量计算有着非常明显的优势。 worker进程和主进程由于工作在不同的进程，会不会因为并发而对代码产生奇奇怪怪的影响。
 
+代码摘自[Google performance](https://developers.google.com/web/fundamentals/performance/rail)：
+
+```js
+var dataSortWorker = new Worker("sort-worker.js");
+dataSortWorker.postMesssage(dataToSort);
+
+// The main thread is now free to continue working on other things...
+
+dataSortWorker.addEventListener('message', function(evt) {
+   var sortedData = evt.data;
+   // Update data on screen...
+});
+```
+由于WebWorker 被做了很多限制，使得它不能访问诸如window，document这样的对象，因此如果你需要使用的话，就不得不寻找别的方法。
+一种思路就是分而治之，将大任务切分为若干个小任务，然后将计算结果汇总，我们通常会借助数组这种数据结构来完成，下面是一个例子：
+
+```js
+// 很多小任务组成的数组
+var taskList = breakBigTaskIntoMicroTasks(monsterTaskList);
+// 使用更新的api requestAnimationFrame而不是setTimeout可以提高性能
+requestAnimationFrame(processTaskList);
+
+function processTaskList(taskStartTime) {
+  var taskFinishTime;
+
+  do {
+    // Assume the next task is pushed onto a stack.
+    var nextTask = taskList.pop();
+
+    // Process nextTask.
+    processTask(nextTask);
+
+    // Go again if there’s enough time to do the next task.
+    taskFinishTime = window.performance.now();
+  } while (taskFinishTime - taskStartTime < 3);
+
+  if (taskList.length > 0)
+    requestAnimationFrame(processTaskList);
+
+}
+```
+
 > 线程安全问题都是由全局变量及静态变量引起的。 若每个线程中对全局变量、静态变量只有读操作，而无写操作，一般来说，这个全局变量是线程安全的；若有多个线程同时执行写操作，一般都需要考虑线程同步，否则的话就可能影响线程安全。
 
 大家可以不必太担心，web worker已经在这方面做了很多努力，例如你没有办法去访问非线程安全的组件或者是 DOM，此外你还需要通过序列化对象来与线程交互特定的数据。因此大家如果想写出线程不安全的代码，还真不是容易的。
