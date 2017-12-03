@@ -61,4 +61,6 @@ function testA(a, b) {
 ## 实现流程自动化的思路是什么
 上面讲述了常规的需求产生到功能发布的完整过程，为了方便大家的理解，我整理了一个图：
 
+![图1.1](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE1.1.png)
+
 ## 如何搭建一个自动化平台
