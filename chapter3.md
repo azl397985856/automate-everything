@@ -72,9 +72,9 @@ function testA(a, b) {
 ### package analyser
 包分析工具这里可以是前端的npm包分析，也可以是后端的比如maven包分析。这里以npm包分析为例，maven等其他包分析同理，只是具体技术实现细节不同，npm包分析和maven包分析只是具体策略不同，我们可以通过策略模式将具体的分析算法封装起来。首先看下包分析引擎实现的功能，其实包分析引擎就是分析应用依赖的包，并逐个递归分析其依赖包，找到其中有风险的依赖，并通知给使用者（项目拥有者）。具体功能包括但不限于分析有安全风险的包，提示有补丁更新，有了这些依赖数据，我们甚至可以统计公司范围内包的使用情况（包括各个版本），这些数据是很有用的。后面一节我们会具体分析包分析引擎的实现细节，使读者可以自行搭建一个npm包分析引擎。
 ### CI
-CI（Continuous integration）是持续将新功能集成到现有系统的一种做法，极限编程也借鉴了CI的基本思想。那么我们是怎样使用CI的呢？我刚才在图中也体现了，开发者的提交会触发CI，CI会做一些单元测试，代码检测等工作，如果不通过则反馈给相关人员，否则将通过的代码合并到库中。也就是说CI并不是一项技术，二是一种最佳实践，更多可以参考[wikipedia](https://en.wikipedia.org/wiki/Continuous_integration)。后面我会介绍实现一个CI的基本思路。
+CI（Continuous Integration）是持续将新功能集成到现有系统的一种做法，极限编程也借鉴了CI的基本思想。那么我们是怎样使用CI的呢？我刚才在图中也体现了，开发者的提交会触发CI，CI会做一些单元测试，代码检测等工作，如果不通过则反馈给相关人员，否则将通过的代码合并到库中。也就是说CI并不是一项技术，二是一种最佳实践，更多可以参考[wikipedia](https://en.wikipedia.org/wiki/Continuous_integration)。后面我会介绍实现一个CI的基本思路。
 ### CD
-CD(Continuous delivery)同样也是一种最佳实践，并不是一项技术。它的基本思想是保证代码随时可发布，它保证了代码发布的可信赖性，同时持续集成减少了开发人员的工作量。更多可以参考[wikipedia](https://en.wikipedia.org/wiki/Continuous_delivery)。后面我会介绍实现一个CD的基本思路。
+CD(Continuous Delivery)同样也是一种最佳实践，并不是一项技术。它的基本思想是保证代码随时可发布，它保证了代码发布的可信赖性，同时持续集成减少了开发人员的工作量。更多可以参考[wikipedia](https://en.wikipedia.org/wiki/Continuous_delivery)。后面我会介绍实现一个CD的基本思路。
 
 当然我们的系统还比较不完善，我们还可以增加配置中心，方便对版本进行管理，还可以增加监测平台（第四章有讲），大家可以发挥自己的聪明才智。
 ## 我们还漏了什么
@@ -149,7 +149,13 @@ npm start
 ![图3.5](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE3.5.png)
 
 代码会经过lint，途中会从配置中心拉取项目的presets和plugins，通过后进入下一个流水线test，test会将代码分发到浏览器云中进行单元测试和集成测试，并将结果发给相关人员，上述两个步骤如果出错也都会通过report service发送信息给相关人员。
-### 搭建持续发布平台
+### 搭建持续部署平台
+持续部署在持续集成的基础上，将集成后的代码部署到更贴近真实运行环境的「类生产环境」（production-like environments）中。比如，我们完成单元测试后，可以把代码部署到连接数据库的 Staging 环境中更多的测试。如果代码没有问题，可以继续手动部署到生产环境中。因此持续部署最小的单元就是将代码划分为一个个可以发布的状态。下面是一个经典的企业级持续部署实现:
 
+![图3.6](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE3.6.png)
+
+https://continuousdelivery.com/implementing/architecture/
+
+更多关于[持续部署实现](https://continuousdelivery.com/implementing/architecture/)的介绍
 ## 总结
 本章通过前端工作流程入手，讲解了前端开发中的工作，并且试图将其中可以自动化的步骤进行自动化集成。然后讲述了完善的一个自动化平台系统是怎样的，以及各个子系统实现的具体思路是怎样的，通过我的讲解，我相信大家应该已经理解了自动化的工作内容，甚至可以自己动手搭建一个简单的自动化平台了。但是程序员中的自动化远不止将实现需求的流程自动化，我们还会搞一些提高效率的小工具，本质上它们也是自动化。只不过他不属于工程化，在本书的附录部分，我也会提供一些自动化小脚本。
