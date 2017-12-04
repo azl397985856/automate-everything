@@ -89,6 +89,10 @@ npm start
 
 ![图3.2](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE3.2.png)
 
+如果要实现以上功能，一个最简单的方法就是执行create-react-app xxx 之后去远端下载文件到本地。其实cra的思路就是这样的，我用一张图来表示cra的基本过程：
+
+![图3.3](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE3.3.png)
+
 ### 中心化，可配置的脚手架服务
 ## 如何搭建一个自动化平台
 ### 搭建package analyser
