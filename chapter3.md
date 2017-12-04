@@ -148,6 +148,7 @@ npm start
 
 ![图3.5](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE3.5.png)
 
+代码会经过lint，途中会从配置中心拉取项目的presets和plugins，通过后进入下一个流水线test，test会将代码分发到浏览器云中进行单元测试和集成测试，并将结果发给相关人员，上述两个步骤如果出错也都会通过report service发送信息给相关人员。
 ### 搭建持续发布平台
 
 ## 总结
