@@ -93,7 +93,14 @@ npm start
 
 ![图3.3](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE3.3.png)
 
+每一步的实现也比较简单，大家可以直接[查看源码](https://github.com/facebookincubator/create-react-app/blob/master/packages/create-react-app/createReactApp.js)
+
 ### 中心化，可配置的脚手架服务
+上面介绍了脚手架的作用和实现原理。但是上述的脚手架无法实现中心化，也就是说不同团队无法形成相互感知，具体来说就是不同项目的脚手架是不同的或者不能够实现高度定制化，因此我们需要构建一个中心化，可配置的脚手架服务，我称之为云脚手架。脚手架采用CS架构。客户端可以是一个CLI，服务端则是一个配置中心，模块发现中心。如下图是一个云脚手架的架构图：
+
+![图3.4](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE3.4.png)
+
+客户端通过命令告诉服务端想要初始化的模版信息，服务端会从模板库中查找对应模板，如果有则返回，没有则请求npm registry，如果有则返回并将其同步到模板库中，供下一次使用。如果没有返回失败。 这样对不同团队来说，脚手架是透明的，团队可以定制适合自己的脚手架，上传到模板库，供其他团队使用，这就形成了一个闭环。
 ## 如何搭建一个自动化平台
 ### 搭建package analyser
 我将包分析引擎的工作过程分为以下三个阶段
