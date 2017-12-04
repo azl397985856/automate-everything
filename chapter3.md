@@ -88,7 +88,7 @@ function testA(a, b) {
 {
  "whiteList": ["react", "redux", "ant-design"],
  "blackList": {
-   "kid": "insecure dependencies 'ssh-go'"
+   "kid": ["insecure dependencies 'ssh-go'"]
  }
 }
 
@@ -104,6 +104,15 @@ function testA(a, b) {
    version: "5.0.3"
  }]
 ```
-然后我们需要遍历数组，从npm registry（可以是官方的registry， 也可以是私有的镜像源）获取包的具体内容，并递归获取依赖。这个时候我们获取了项目所有的依赖的和深层依赖的包。最后我们需要根据包名去匹配黑白名单。
+然后我们需要遍历数组，从npm registry（可以是官方的registry， 也可以是私有的镜像源）获取包的具体内容，并递归获取依赖。这个时候我们获取了项目所有的依赖的和深层依赖的包。最后我们需要根据包名去匹配黑白名单。我们还有一步需要做，就是获取包的更新日志，将有意义的日志（这里可以自己封装算法，究竟什么样的更新日志是有意义的，留给大家思考）输出给项目拥有者。
 #### 结果输出
-我们已经将所有的依赖包进行匹配，这个时候已经知道了系统依赖的白名单包，黑名单包和unknown
+我们已经将所有的依赖包进行匹配，这个时候已经知道了系统依赖的白名单包，黑名单包和unknown包，我们有了匹配之后的数据源。
+```js
+ const result = {
+    projectName: "demo"
+    whiteList: ["react", "redux"],
+    blackList: [{name: "kid", ["insecure dependencies 'ssh-go'"]}]，
+    changeLog: [{name: ""react-redux, logs: {url: '', content: ''}}]
+ }
+```
+我们要做到数据和显示分离。这个时候我们将数据单独存起来，然后采用友好的信息展示出来，这部分应该比较简单，不多说了。
