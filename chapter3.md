@@ -82,6 +82,28 @@ function testA(a, b) {
 ### 搭建package analyser
 我将包分析引擎的工作过程分为以下三个阶段
 #### 建立黑白名单
+我们需要对包分析，分析的结果当然需要数据支撑。因此黑白名单是不可少的，我们可以自己补充黑白名单，我们甚至可以建立自己的黑白名单系统，当然也可以接入第三方的数据源。不管怎样，第一步我们需要有数据源，这是第一步也是最重要的一步。为了简单起见，我以JSON来描述一下我们的数据源:
+```json
+// 所有的key都是npm包的包名
+{
+ "whiteList": ["react", "redux", "ant-design"],
+ "blackList": {
+   "kid": "insecure dependencies 'ssh-go'"
+ }
+}
 
+```
 #### 递归分析包并匹配黑白名单
+这一步需要递归分析包。 我们的输入只是一个配置文件，npm来说的话就是一个package.json文件。我们需要提取package.json的两个字段dependencies和devDependencies，两者就是项目的依赖包，区别在于后者是开发依赖。这个时候我们可以获得项目的一个依赖数组。形如：
+```js
+ const dependencies = [{
+   name: "react",
+   version: "15.4.2"
+ }, {
+   name: "react-redux",
+   version: "5.0.3"
+ }]
+```
+然后我们需要遍历数组，从npm registry（可以是官方的registry， 也可以是私有的镜像源）获取包的具体内容，并递归获取依赖。这个时候我们获取了项目所有的依赖的和深层依赖的包。最后我们需要根据包名去匹配黑白名单。
 #### 结果输出
+我们已经将所有的依赖包进行匹配，这个时候已经知道了系统依赖的白名单包，黑名单包和unknown
