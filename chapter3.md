@@ -146,7 +146,7 @@ npm start
 ### 搭建持续集成平台
 如果想要搭建持续平台的话，最基础的三个服务是要有的，lint，test以及report。其实lint，test和report的具体实现已经超出了CI的范畴，这里就大致讲以下。对于lint来说，本质上是对js文本的检查，然后匹配一些规则，业界比较有名的是红宝书的作者nzakas的eslint，关于eslint的整体架构可以查阅[这里](https://github.com/eslint/eslint/blob/master/docs/developer-guide/architecture.md)zakas的初衷不是重复造一个轮子，而是在实际需求得不到JSHint团队响应的情况下，自己开发并开源了eslint：一个支持可扩展、每条规则独立、不内置编码风格为理念编写一个js lint工具。对于test，其实就是运行开发人员写的测试用例，并保证运行正确且覆盖率足够高。如果上述步骤出错，则会向相关人员告警。下面是CI的架构图：
 
-![图3.4](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE3.4.png)
+![图3.5](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE3.5.png)
 
 ### 搭建持续发布平台
 
