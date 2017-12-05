@@ -501,7 +501,7 @@ factorial(1000) // 有可能爆栈，但是现在浏览器做了优化，通常�
 由于js没有私有属性，js如果要实现私有属性的功能，就要借助闭包实现。
 
 ```js
- fuction closure() {
+ function closure() {
    var privateKey = 1;
    return function() {
      return privateKey
