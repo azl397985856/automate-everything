@@ -67,11 +67,15 @@ body
 
 为了让大家有更清晰地认识，我将上面浏览器加载网站步骤中的第七步中的CSSDOM和DOM以及render tree的构建过程，更详细地讲解一下。
 
-浏览器请求服务端的HTML文件，服务端响应字节流给前端。前端接受到HTML然后根据指定的编码格式进行编码。编码完成之后会分析HTML内容，将HTML分成一个个token，然后根据不同token生成不同的DOM，然后根据HTML中的层级结构生成DOM书。
+浏览器请求服务端的HTML文件，服务端响应字节流给前端。前端接受到HTML然后根据指定的编码格式进行编码。编码完成之后会分析HTML内容，将HTML分成一个个token，然后根据不同token生成不同的DOM，然后根据HTML中的层级结构生成DOM树。
 
 ![图4.02](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE4.02.png)
 
-其中要注意的是，如果碰到CSS标签和JavaScript标签（不是async或者defer的js脚本）会暂停渲染，等到资源加载完毕，继续渲染。如果加载了CSS文件（内敛样式同理），会在加载完成CSS之后生成CSSDOM。CSSDOM的生成过程类似，也是将CSS分成一个个token，然后根据不同token生成CSSDOM，CSSDOM是用来控制DOM的样式的。最后将DOM和CSSDOM合成render tree，根据盒模型和CSS计算规则生成计算样式（chrome中叫computed style），最后调用绘制线程将DOM绘制到页面上。
+其中要注意的是，如果碰到CSS标签和JavaScript标签（不是async或者defer的js脚本）会暂停渲染，等到资源加载完毕，继续渲染。如果加载了CSS文件（内敛样式同理），会在加载完成CSS之后生成CSSDOM。CSSDOM的生成过程类似，也是将CSS分成一个个token，然后根据不同token生成CSSDOM，CSSDOM是用来控制DOM的样式的。最后将DOM和CSSDOM合成render tree。
+
+> CSS 是阻塞渲染的资源。需要将它尽早、尽快地下载到客户端，以便缩短首次渲染的时间。
+
+为弄清每个对象在网页上的确切大小和位置，浏览器从渲染树的根节点开始进行遍历，根据盒模型和CSS计算规则生成计算样式（chrome中叫computed style），最后调用绘制线程将DOM绘制到页面上。因此优化上面每一个步骤都非常重要。
 
 ## 浏览器性能指标
 
