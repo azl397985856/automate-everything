@@ -75,9 +75,21 @@ body
 
 > CSS 是阻塞渲染的资源。需要将它尽早、尽快地下载到客户端，以便缩短首次渲染的时间。
 
-为弄清每个对象在网页上的确切大小和位置，浏览器从渲染树的根节点开始进行遍历，根据盒模型和CSS计算规则生成计算样式（chrome中叫computed style），最后调用绘制线程将DOM绘制到页面上。因此优化上面每一个步骤都非常重要。现在我们有了清晰的认识，关键资源HTML是一切的起点，没有HTML后面就没有意义。CSS应该尽快下载并解析，通常我们将css放在head里面优先加载执行。所以这部分的优化其实很大程度在在于资源大小的优化，包括一些app shell的概念的原理也是这样的，我们应该优先给用户呈现最小子集，然后慢慢显示不那么重要的内容，就好像PJPEG一样。如下图是一个渐进式渲染的一个例子（图片来自developers.google.com）：
+为弄清每个对象在网页上的确切大小和位置，浏览器从渲染树的根节点开始进行遍历，根据盒模型和CSS计算规则生成计算样式（chrome中叫computed style），最后调用绘制线程将DOM绘制到页面上。因此优化上面每一个步骤都非常重要。现在我们有了清晰的认识，关键资源HTML是一切的起点，没有HTML后面就没有意义。CSS应该尽快下载并解析，通常我们将css放在head里面优先加载执行。所以这部分的优化其实很大程度在在于资源大小的优化，就像app shell的概念一样。我们应该优先给用户呈现最小子集，然后慢慢显示不那么重要的内容，就好像PJPEG一样。如下图是一个渐进式渲染的一个例子（图片来自developers.google.com）：
 
 ![图4.03](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE4.03.png)
+
+我们还没有讨论JavaScript，理论上JavaScript既可以操作CSS，也可以直接修改DOM。浏览器不知道JavaScript的具体内容，因此默认情况下JavaScript会阻止渲染引擎的执行，转而去执行JS线程，如果是外部 JavaScript 文件，浏览器必须停下来，等待从磁盘、缓存或远程服务器获取脚本，这就可能给关键渲染路径增加数十至数千毫秒的延迟，除非遇到带有async或者defer的标签。向script标记添加异步关键字可以指示浏览器在等待脚本可用期间不阻止DOM构建，这样可以显著提升性能。
+
+经过上面的分析，我们知道了关键路径。已经关键路径是浏览器做了什么事。我们可以借助chrome开发工具查看瀑布图，分析网站的关键路径，分析加载缓慢，影响网站速度的瓶颈点。
+
+![图4.04](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE4.04.png)
+
+也可以使用一些工具检测，比如前面提到的web performance test，也可以尝试下Lighthouse。
+
+![图4.05](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE4.05.png)
+
+在后面的小节，我会介绍performance api，大家可以在前端埋点，然后分析网站的性能指标，这也是对其他分析手法的一个重要补充。
 
 ## 浏览器性能指标
 
