@@ -51,7 +51,7 @@ SOA和micro service 的基本理念是将应用程序的不同功能单元（称
 ```jsx
 <Drag >
 <Modal />
-</ Drag>
+</Drag>
 ```
 
 一个典型的系统是这样的：
