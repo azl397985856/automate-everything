@@ -567,5 +567,19 @@ factorial(1000) // 有可能爆栈，但是现在浏览器做了优化，通常�
 > imgix有一个优势就是能够找到图片中有趣的区域并做裁剪。而不是仅仅裁剪出图片的中心
 
 上面提到的webp最好也可以通过CDN厂商支持，即我们上传图片的时候，CDN厂商对应存储一份webp的。比如我们上传一个png图片`https://img.alicdn.com/test/TB1XFdma5qAXuNjy1XdXXaYcVXa-29-32.png`。然后我们可以通过`https://img.alicdn.com/test/TB1XFdma5qAXuNjy1XdXXaYcVXa-29-32.webp`访问其对应的webp资源。我们就可以根据浏览器的支持情况加载webp或者png图片了。
+
+第二个有效的方式是懒加载，一个重要的思想就是只加载应该在此时展示的图片。假如你正在使用react，那么你可以通过react-lazyload使用图片懒加载。其他框架可以自行搜索。
+```js
+import LazyLoad from 'react-lazyload';
+
+
+<LazyLoad once height={200} offset={50}>
+  <img
+    srcSet={xxx}
+    sizes={xxxxx}
+  />
+</LazyLoad>
+
+```
 ## 总结
 如果你已经采取了非常多的优化手段，用户还是觉得非常慢，怎么办呢？要知道，性能好不好不是数据测量出来的，而是用户的直观感觉，就像我开篇讲述的那样。有一个方法可以在速度不变的情况下，让用户感觉更快，那就是合理使用动画。如一个写着当前90%进度的进度条，一个奔跑的小熊？但是一定要慎用，因为不合理的动画设计，反而让用户反感，试想一下，当你看到一个期待已久的确定按钮，但是它被一个奔跑的小熊挡在了身后，根本点不到，你内心会是怎样的？
