@@ -171,7 +171,106 @@ https://continuousdelivery.com/implementing/architecture/
 - 服务可被多个应用共享
 - 服务之间可以通信
 
+这里并不打算讨论服务治理的具体实施细节，但是需要明白的是通过这种微服务的思想。我们需要通知服务，只需要发送一个信号，告诉通知服务，通知服务返回一个信号，表示输出的结果。比如我需要接入邮件服务这个通知服务。代码大概是这样的:
+```js
+'use strict';
+const nodemailer = require('nodemailer');
+const promisify = require('promisify')
 
+// Generate test SMTP service account from ethereal.email
+// Only needed if you don't have a real mail account for testing
+exports default mailer = async context => {
+
+    // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+        host: 'smtp.ethereal.email',
+        port: 587,
+        secure: false, // true for 465, false for other ports
+        auth: {
+            user: account.user, // generated ethereal user
+            pass: account.pass  // generated ethereal password
+        }
+    });
+
+    // setup email data with unicode symbols
+    let mailOptions = {
+        from: '"Fred Foo 👻" <foo@blurdybloop.com>', // sender address
+        to: 'bar@blurdybloop.com, baz@blurdybloop.com', // list of receivers
+        subject: 'Hello ✔', // Subject line
+        text: 'Hello world?', // plain text body
+        html: '<b>Hello world?</b>' // html body
+    };
+
+    // send mail with defined transport object
+    await promisify(transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Message sent: %s', info.messageId);
+        // Preview only available when sending through an Ethereal account
+        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+
+        // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@blurdybloop.com>
+        // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+   
+    }));
+          
+    return {
+           status: 200,
+           body: 'send sucessfully',
+           headers: {
+               'Foo': 'Bar'
+           }
+      }
+};
+```
+
+如果每一个应用需要使用邮件服务，就需要写这样的一堆代码，如果公司的系统不同导致语言不同，还需要在不同语言都实现一遍，很麻烦，而如果将发送邮件抽象成通知服务的具体实现，就可以减少冗余代码，甚至java也可以调用我们上面用js写的邮件服务了。
+
+> 小提示。当我们需要使用邮件服务的时候，最好不要在代码中直接向邮件服务发送消息，而是向通知服务这种抽象层次更高的服务发送。
+
+有一个流行的概念是faas(function as a service)。它往往和无服务一起被谈起，无服务不是说没有服务器，而是将服务架构透明，对于普通开发者来说就好像没有服务器一样，这样就可以将我们从服务器环境中解放出来，专注于逻辑本身。fission(Fast Serverless Functions for Kubernetes)是一个基于k8s的无服务框架。通过它开发者可以只关注逻辑本身，我们可以直接将上面的mail方法作为部署单元。下面是一个例子：
+
+```bash
+
+  $ fission env create --name nodejs --image fission/node-env
+
+  $ curl https://notification.severless.com/mailer.js > mailer.js
+
+  # Upload your function code to fission
+  $ fission function create --name mailer --env nodejs --code mailer.js
+
+  # Map GET /mailer to your new function
+  $ fission route create --method GET --url /mailer --function mailer
+
+  # Run the function.  This takes about 100msec the first time.
+ 
+  $ curl -H "Content-Type: application/json" -X POST -d '{"user":"user", "pass": "pass"}' http://$FISSION_ROUTER/mailer
+
+```
+
+ 这样如果有一个系统需要将mailer服务切换成sms服务就很简单了：
+ 
+ ```js
+ 
+  $ fission env create --name nodejs --image fission/node-env
+
+  $ curl https://notification.severless.com/sms.js > sms.js
+
+  # Upload your function code to fission
+  $ fission function create --name sms --env nodejs --code sms.js
+
+  # Map GET /mailer to your new function
+  $ fission route create --method GET --url /sms --function sms
+
+  # Run the function.  This takes about 100msec the first time.
+ 
+  $ curl -H "Content-Type: application/json" -X POST -d '{"user":"user", "pass": "pass"}' http://$FISSION_ROUTER/sms
+ 
+ ```
+ 
+ 服务的实现也足够简单，只需要关心具体逻辑就OK了。
+ 
 ## 自动化脚本
 ### 哪些地方应该自动化
 上面讲述了软件开发的过程，以及我们可以将哪些过程自动化。这一节，我们讲述自动化的第二部分自动化脚本。刨除软件开发本身，计算机中其实也充满了重复性工作，同样也充满了解决这些重复工作的自动化解决方案，这些解决方案可以是一个脚本，可以是一个软件或者插件等，总之它将人们从重复性的工作中解脱了出来。举个例子，我们都有过下载视频的经历，我们看上了某个网上的一个视频，我们想下载下来，但是在下载的时候，发现只有VIP可以下载。我们就去网上查找解决方案。我们按照教程历经千辛万苦终于将视频下载了下来。下次我们又要下载视频了，我们还要经历了上面的步骤（我们甚至还要再看一遍教程）。于是自动下载在线网站视频的自动化解决方法出现了，人们只需要简单的操作就可以将自己心爱的视频下载下来，多么省心！类似的还有很多，比如批量处理工具，一键重装系统工作等等，根本数不过来。
