@@ -162,7 +162,7 @@ server {
 那么整个流程具体是怎么工作的呢？ 可以下面这张图：
 ![图1.2](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE1.2.png)
 
-可以看出请求首先留到ngxin（反向代理），nginx判断是否是静态请求（html），如果是则转发到node服务器，node服务器会判断是否需要进行ssr，如果需要则调用后台接口拼装html，将**html和应用状态**一起返回给前端。 否过不需要ssr，则直接返回静态资源，并设置缓存信息。
+可以看出请求首先留到ngxin（反向代理），nginx判断是否是静态请求（html），如果是则转发到node服务器，node服务器会判断是否需要进行ssr，如果需要则调用后台接口拼装html，将**html和应用状态**一起返回给前端。 如果不需要ssr，则直接返回静态资源，并设置缓存信息。
 如果不是静态资源，判断头部信息（比如有一个自定义字段reselect: 'node' | ''），是否需要请求合并，如果需要则请求到node端，如果不需要直接转发给后端服务器。
 ngxin配置大概是这样：
 
