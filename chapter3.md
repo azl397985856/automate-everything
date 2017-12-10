@@ -370,7 +370,20 @@ npm run changelog > npm run serve-markdown > npm run start-server --port 1089
 
 ```
 
-我们通过meta-script又增加了一个很好用的task，我们可以命名为start changelog-site。 我们可以增加更多的meta-script，我们可以根据meta-script组合更多task。然后我们只需要one-key就可以实现任意中组合的功能，是不是很棒？自己动手试试把！
+我们通过meta-script又增加了一个很好用的task，我们可以命名为start changelog-site。
+
+还有更多：
+
+```bash
+
+npm run stop > npm run start-attach
+
+```
+
+我们又实现了一个“放弃”浏览器调试，而用editor调试的task，我们称之为editor-debug。
+
+
+我们可以增加更多的meta-script，我们可以根据meta-script组合更多task。然后我们只需要one-key就可以实现任意中组合的功能，是不是很棒？自己动手试试把！
 
 ## 总结
 本章通过前端工作流程入手，讲解了前端开发中的工作，并且试图将其中可以自动化的步骤进行自动化集成。然后讲述了完善的一个自动化平台系统是怎样的，以及各个子系统实现的具体思路是怎样的，通过我的讲解，我相信大家应该已经理解了自动化的工作内容，甚至可以自己动手搭建一个简单的自动化平台了。但是程序员中的自动化远不止将实现需求的流程自动化，我们还会搞一些提高效率的小工具，本质上它们也是自动化。只不过他不属于工程化，在本书的附录部分，我也会提供一些自动化小脚本。
