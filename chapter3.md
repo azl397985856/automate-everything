@@ -351,10 +351,26 @@ case "$ACTION" in
 每一个meta-script都是一个小的脚本或者一个外部库（external library），由于我使用的是npm作为包管理工具，因此我将meta-script放到了package.json文件中的script里面。这样我就可以通过运行`npm run xxx` 执行对应的脚本或者外部库了。但是别忘了，有时候我们需要做一些复杂的任务，比如我需要在浏览器中查看项目中所有的readme。那么我需要先把项目中的readme全部concat起来，然后将concat的内容作为数据源，传给serve-markdown，然后serve-markdown传给start-server。代码大概是这样的:
 
 ```bash
+
 npm run concat-readme > npm run serve-markdown > npm run start-server --port 1089
 
 ```
 
+我称上面的代码task，然后我们把上面的代码也放到package.json的script中，似乎这种做法很好地解决了问题。但是它有几个缺点。
+- meta-script 和 task 混杂在一起，这样本身并不可怕，但是此时并不是所有的script都可以很好重用，我们的task并不是为了重用。
+- package.json是作为版本控制的一部分存在，如果某个开发者希望根据自己的情况定制一个task，就不应该放到这里了。
+
+因此我的做法是将meta-script放到版本库（这个例子我们放到了package.json中），然后将task放到编辑器中控制。我使用的编辑器是VSCODE，它有一个task manager功能，也可以下载第三方插件进行扩展。然后我们可以自己定义task，比如上面的我们可以作为个人配置保存起来，命名为start doc-site。
+
+我们可以继续组合：
+
+```bash
+
+npm run changelog > npm run serve-markdown > npm run start-server --port 1089
+
+```
+
+我们通过meta-script又增加了一个很好用的task，我们可以命名为start changelog-site。 我们可以增加更多的meta-script，我们可以根据meta-script组合更多task。然后我们只需要one-key就可以实现任意中组合的功能，是不是很棒？自己动手试试把！
 
 ## 总结
 本章通过前端工作流程入手，讲解了前端开发中的工作，并且试图将其中可以自动化的步骤进行自动化集成。然后讲述了完善的一个自动化平台系统是怎样的，以及各个子系统实现的具体思路是怎样的，通过我的讲解，我相信大家应该已经理解了自动化的工作内容，甚至可以自己动手搭建一个简单的自动化平台了。但是程序员中的自动化远不止将实现需求的流程自动化，我们还会搞一些提高效率的小工具，本质上它们也是自动化。只不过他不属于工程化，在本书的附录部分，我也会提供一些自动化小脚本。
