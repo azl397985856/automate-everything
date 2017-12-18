@@ -327,7 +327,7 @@ case "$ACTION" in
 ```
 
 借助shell强大的编程能力，还有将数据抽象成流，并通过组合流完成复杂任务的能力，我们可以构建非常复杂的脚本。我们甚至可以将检测三方库潜在风险信息功能做成脚本，然后集成到CI中，只有想不到，没做做不到。这里只是给大家提供思路，希望大家可以根据这个思路进行延伸，从而将一切应该被自动化的东西全部自动化。
-### 自动化解决问题的思路
+### 开发流程自动化
 上面讲述了哪些地方应该被自动化。大家看了后很可能是拿了锤子的疯子，你会发现所有的东西都是钉子，是不是任何东西都可以自动化？当然不是！ 可以自动化的应该是有着极强规律的枯燥活动，而充满创新的任务还是要让开发者自己享受。因此当你觉得某项工作枯燥无味，并且有着很强的规律和判别指标的时候就是你拿起手里锤子的时候。比如我每天都要回报我的工作，将自己的进度同步给组里其他人，虽然很枯燥乏味（希望我的领导不会看到），但是并没有规律性。因此不应该被自动化。
 
 这里再举一个例子。我将开发过程中需要处理的事情进行了分类，我称为元脚本（meta-script），分别有如下内容：
@@ -384,6 +384,53 @@ npm run stop > npm run start-attach
 
 
 我们可以增加更多的meta-script，我们可以根据meta-script组合更多task。然后我们只需要one-key就可以实现任意中组合的功能，是不是很棒？自己动手试试把！
+
+### 无处不在的自动化
+上面举的例子是一个典型的开发流程，那么其他日常的自动化怎么去做呢？比如我要控制电脑发送邮件，比如我要控制电脑睡眠，我要调整电脑的音量等。虽然我们也可以按照上面的思路，写一个元脚本，然后将元脚本组合。但是这里的元脚本似乎并不能通过node的cli程序或者shell脚本实现。但是这恰好是自动化必不可少的一环。因此我们面临一个GUI的自动化运行过程，将我们繁琐重复的UI工作中解脱出来。这里介绍在mac下自动化的例子。
+#### JXA
+说到mac中自动化，jxa是一种使用javaScript与mac中的app进行通讯的技术。通过它开发者可以通过js获取到app的实例，以及实例的属性和方法。通过jxa我们可以轻松通过JavaScript来自动化脚本完成诸如给某人发送邮件，打开特定软件，获取iTunes的播放信息等功能。下面举个发送邮件的例子：
+
+```js
+
+const Mail = Application("Mail");
+ 
+const body = "body";
+
+let message = Mail.OutgoingMessage().make();
+message.visible = true;
+message.content = body;
+message.subject = "Hello World";
+message.visible = true;
+ 
+message.toRecipients.push(Mail.Recipient({address: "a@duiba.com.cn", name: "zhangsan"}));
+message.toRecipients.push(Mail.Recipient({address: "b@duiba.com.cn", name: "lisi"}));
+ 
+message.attachments.push(Mail.Attachment({ fileName: "/Users/lucifer/Downloads/sample.txt"}));
+ 
+Mail.outgoingMessages.push(message);
+Mail.activate();
+
+```
+有两种方式运行上面的例子，一种是命令行方式，另一种是直接作为脚本运行。
+
+1. 命令行方式运行
+
+```bash
+
+osascript /Users/luxiaopeng/jxa/hello.js
+
+```
+
+2. 作为脚本运行
+
+
+运行之后效果是这样的：
+
+![图3.7](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE3.7.png)
+
+
+#### Alfred
+JXA的功能非常强大，但是其功能比较繁琐。如果你只是想简单地写一个自动化脚本，做一些简单的了解。介绍大家一个更加简单却不失强大的工具-alfred workflow。 你可以自定义自己的工作流，支持GUI，shell脚本甚至前面提到的jxa写工作流。其简单易用性，以及其独特的流式处理，各种组合特性使得它功能非常强大。
 
 ## 总结
 本章通过前端工作流程入手，讲解了前端开发中的工作，并且试图将其中可以自动化的步骤进行自动化集成。然后讲述了完善的一个自动化平台系统是怎样的，以及各个子系统实现的具体思路是怎样的，通过我的讲解，我相信大家应该已经理解了自动化的工作内容，甚至可以自己动手搭建一个简单的自动化平台了。但是程序员中的自动化远不止将实现需求的流程自动化，我们还会搞一些提高效率的小工具，本质上它们也是自动化。只不过他不属于工程化，在本书的附录部分，我也会提供一些自动化小脚本。
