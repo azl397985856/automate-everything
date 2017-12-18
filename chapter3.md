@@ -437,11 +437,26 @@ osascript /Users/luxiaopeng/jxa/hello.js
 
 运行之后效果是这样的：
 
-![图3.7](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE3.7.png)
+![图3.7](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%20%E5%9B%BE3.7.png)
 
+jxa提供了丰富的api供我们使用。详细可以查看脚本编辑器-文件-字典：
+
+![图3.9](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE3.9.png)
+
+比如我要查看dash的api：
+
+![图3.10](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE3.10.png)
+
+但是遗憾的是并不是所有的app都提供了很多有用的api，比如钉钉，也并不是所有的程序都有字典，比如qq，微信。好消息是mac自带的程序接口还是比较丰富的。但是我们发现尽管如此，我们想要实现某些功能，还是会比较复杂。对于不想太深入了解并且想要自动化的开发者来说一款简单的工具是有必要的，下面我介绍一款在mac下的神器。
 
 #### Alfred
-JXA的功能非常强大，但是其功能比较繁琐。如果你只是想简单地写一个自动化脚本，做一些简单的了解。介绍大家一个更加简单却不失强大的工具-alfred workflow。 你可以自定义自己的工作流，支持GUI，shell脚本甚至前面提到的jxa写工作流。其简单易用性，以及其独特的流式处理，各种组合特性使得它功能非常强大。
+JXA的功能非常强大，但是其功能比较繁琐。如果你只是想简单地写一个自动化脚本，做一些简单的了解。介绍大家一个更加简单却不失强大的工具-alfred- workflow。 你可以自定义自己的工作流，支持GUI，shell脚本甚至前面提到的jxa写工作流。其简单易用性，以及其独特的流式处理，各种组合特性使得它功能非常强大。下面是我的alfred-workflow：
+
+![图3.11](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE3.11.png)
+
+你可以像我拆分开发流程一样将你的工作流拆解，每一部分实现自己的功能，设置语言可以不一样。比如处理用户输入用bash，然后bash将输入流重定向到perl脚本等都是可以的。 alfred-workflow可以允许你简单地添加文件操作，web操作，剪贴板等，设置不用写任何代码。
+
+![图3.12](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE3.12.png)
 
 ## 总结
 本章通过前端工作流程入手，讲解了前端开发中的工作，并且试图将其中可以自动化的步骤进行自动化集成。然后讲述了完善的一个自动化平台系统是怎样的，以及各个子系统实现的具体思路是怎样的，通过我的讲解，我相信大家应该已经理解了自动化的工作内容，甚至可以自己动手搭建一个简单的自动化平台了。但是程序员中的自动化远不止将实现需求的流程自动化，我们还会搞一些提高效率的小工具，本质上它们也是自动化。只不过他不属于工程化，在本书的附录部分，我也会提供一些自动化小脚本。
