@@ -417,12 +417,23 @@ Mail.activate();
 
 ```bash
 
-osascript /Users/luxiaopeng/jxa/hello.js
+osascript -l JavaScript -e 'Application("iTunes").isrunning()'
 
 ```
 
 2. 作为脚本运行
 
+一种方式是保存为文件之后运行
+
+```bash
+
+osascript /Users/luxiaopeng/jxa/hello.js
+
+```
+
+另一种是用苹果自带的脚本编辑器：
+
+![图3.8](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE3.8.png)
 
 运行之后效果是这样的：
 
