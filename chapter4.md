@@ -599,5 +599,5 @@ import LazyLoad from 'react-lazyload';
 有了上面的优化理论和思想，我相信这些东西都是可以看到并做到的
 
 ## 参考文献
-[async & performance](https://github.com/getify/You-Dont-Know-JS/blob/master/async%20&%20performance/ch6.md)
-[google performance](https://developers.google.com/web/fundamentals/performance/why-performance-matters/)
+- [async & performance](https://github.com/getify/You-Dont-Know-JS/blob/master/async%20&%20performance/ch6.md)
+- [google performance](https://developers.google.com/web/fundamentals/performance/why-performance-matters/)
