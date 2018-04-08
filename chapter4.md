@@ -600,3 +600,4 @@ import LazyLoad from 'react-lazyload';
 
 ## 参考文献
 [async & performance](https://github.com/getify/You-Dont-Know-JS/blob/master/async%20&%20performance/ch6.md)
+[google performance](https://developers.google.com/web/fundamentals/performance/why-performance-matters/)
