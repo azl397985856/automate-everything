@@ -30,7 +30,7 @@
 
 [第五章 调试的秘诀与技巧（todo）](https://github.com/azl397985856/automate-everything/blob/master/chapter5.md)
 
-[第五章 到处都是测试（todo）](https://github.com/azl397985856/automate-everything/blob/master/chapter6.md)
+[第六章 到处都是测试（todo）](https://github.com/azl397985856/automate-everything/blob/master/chapter6.md)
 
 [附录一 自动化小脚本](https://github.com/azl397985856/automate-everything/blob/master/appendix1.md)
 
