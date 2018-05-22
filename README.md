@@ -28,6 +28,10 @@
 
 [第四章 页面加载性能优化](https://github.com/azl397985856/automate-everything/blob/master/chapter4.md)
 
+[第五章 调试的秘诀与技巧（todo）](https://github.com/azl397985856/automate-everything/blob/master/chapter5.md)
+
+[第五章 到处都是测试（todo）](https://github.com/azl397985856/automate-everything/blob/master/chapter6.md)
+
 [附录一 自动化小脚本](https://github.com/azl397985856/automate-everything/blob/master/appendix1.md)
 
 [附录二 参考文献](https://github.com/azl397985856/automate-everything/blob/master/appendix2.md)
