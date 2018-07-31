@@ -296,7 +296,7 @@ report('pageA',{userId: '876521', meta: {}})
 
 前面说了客户端上传的信息大概是
 
-```json
+```js
 {
  userId: 876521,
  page: "index",
