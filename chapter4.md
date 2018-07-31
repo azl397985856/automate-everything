@@ -67,13 +67,13 @@ body
 
 经过上面简单的讲解，我想大家对浏览器加载HTML开始到页面呈现出来，有了一个大概的认识，后面我会更详细地讲解这个过程。有一个名词叫关键路径（Critical Path），它指的是从浏览器收到 HTML、CSS 和 JavaScript 字节到对其进行必需的处理，从而将它们转变成渲染的像素。这一过程中有一些中间步骤，优化性能其实就是了解这些步骤中发生了什么。记住关键路径上的资源有HTML，CSS，JavaScript，其中并不包括图片，虽然图片在我们的应用中非常普遍，但是图片并不会阻止用户的交互，因此不计算到关键路径，关于图片的优化我会在下面的小节中重点介绍。
 
-为了让大家有更清晰地认识，我将上面浏览器加载网站步骤中的第七步中的CSSDOM和DOM以及render tree的构建过程，更详细地讲解一下。
+为了让大家有更清晰地认识，我将上面浏览器加载网站步骤中的第七步中的CSSOM和DOM以及render tree的构建过程，更详细地讲解一下。
 
 浏览器请求服务端的HTML文件，服务端响应字节流给浏览器。浏览器接受到HTML然后根据指定的编码格式进行解码。完成之后会分析HTML内容，将HTML分成一个个token，然后根据不同token生成不同的DOM，最后根据HTML中的层级结构生成DOM树。
 
 ![图4.02](https://github.com/azl397985856/automate-everything/blob/master/illustrations/%E5%9B%BE4.02.png)
 
-其中要注意的是，如果碰到CSS标签和JavaScript标签（不是async或者defer的js脚本）会暂停渲染，等到资源加载完毕，继续渲染。如果加载了CSS文件（内敛样式同理），会在加载完成CSS之后生成CSSDOM。CSSDOM的生成过程类似，也是将CSS分成一个个token，然后根据不同token生成CSSDOM，CSSDOM是用来控制DOM的样式的。最后将DOM和CSSDOM合成render tree。
+其中要注意的是，如果碰到CSS标签和JavaScript标签（不是async或者defer的js脚本）会暂停渲染，等到资源加载完毕，继续渲染。如果加载了CSS文件（内敛样式同理），会在加载完成CSS之后生成CSSOM。CSSOM的生成过程类似，也是将CSS分成一个个token，然后根据不同token生成CSSOM，CSSOM是用来控制DOM的样式的。最后将DOM和CSSOM合成render tree。
 
 > CSS 是阻塞渲染的资源。需要将它尽早、尽快地下载到客户端，以便缩短首次渲染的时间。
 
