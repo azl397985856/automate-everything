@@ -125,27 +125,36 @@ ws.send('{"id": 1, "method": "Network.clearBrowserCache", "params": {}}')
 方式间接调试。
 ##### 安卓端APP封装的webview调试方法
 
+刚才说了移动端APP的webview只是对标准内核的封装，安卓使用的chrome的内核。
+因此我们可以先收集浏览器内核版本，然后在该版本浏览器中重现问题，从而去调试。
+具体方法如下：
+
 1. 收集内核信息
 
-navigator.userAgent可以获取浏览器内核版本信息
-可以使用https://ie.icoa.cn/ 这个工具快速检测内核信息
+navigator.userAgent可以获取浏览器内核版本信息。
+然后可以使用https://ie.icoa.cn/ 这个工具快速检测内核信息
 
 2. 根据内核信息下载安装对应的chrome版本浏览器。
 
-可以去apkmirror下载 https://www.apkmirror.com/apk/google-inc/chrome/chrome-40-0-2214-109-7-release/chrome-40-0-2214-109-android-apk-download/
+可以去apkmirror下载 https://www.apkmirror.com/apk/google-inc/chrome/chrome-40-0-2214-109-7-release/chrome-40-0-2214-109-android-apk-download/ 对应的chrome版本浏览器。
 
 3. adb连接手机进行调试（优点是可以调试云端设备，无需连线）
 
-需要手机和电脑同一个子网
-需要知道手机ip
-需要手机点击允许调试
+- 需要手机和电脑同一个子网
+- 需要知道手机ip
+- 需要手机点击允许调试
 
+但是这个方式并一定能够百分百重现问题。 比如某一个APP将alert方法进行了重写。
+你如果在你的代码中用alert就有问题。 但这个并不能通过围魏救赵的方式去解决。
+但是事实证明它可以解决很多绝大多数问题。 实在不行的可能就需要求助于该APP的开发者中心去帮助你们调试了。
 
 ##### IOS端APP封装的webview调试方法
 
+和前面类似：
+
 1. 收集内核信息
 
-navigator.userAgent可以获取浏览器内核版本信息
+navigator.userAgent获取浏览器内核版本信息
 
 2. 根据内核信息启动不同的模拟器调试
 
