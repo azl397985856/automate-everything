@@ -29,7 +29,7 @@
 
 如下是我写的一个 sample 的测试覆盖率报告：
 
-![&#x6D4B;&#x8BD5;&#x62A5;&#x544A;](https://github.com/azl397985856/automate-everything/blob/master/illustrations/图6.1.png)
+![&#x6D4B;&#x8BD5;&#x62A5;&#x544A;](https://github.com/azl397985856/automate-everything/master/illustrations/图6.1.png)
 
 这里测试覆盖率有了更多的精细化的技术指标： 比如语句覆盖率（Stmts），分支覆盖率（Branch），函数覆盖率（Funcs），行数覆盖率（Lines），未被覆盖的行（Uncovered Line）等。这些指标通过名字就大概能看出含义。
 

@@ -4,7 +4,7 @@
 
 ## 什么是模块化
 
-![&#x56FE;2.1](https://github.com/azl397985856/automate-everything/blob/master/illustrations/图2.1.png)
+![&#x56FE;2.1](https://github.com/azl397985856/automate-everything/master/illustrations/图2.1.png)
 
 模块化是个一般概念，这一概念也适用于软件开发，可以让软件按模块单独开发，各模块通常都用一个标准化的接口来进行通信。除了规模大小有区别外，面向对象语言中对象之间的关注点分离与模块化的概念基本一致。通常，把系统划分外多个模块有助于将耦合减至最低，让代码维护更加简单。任何一个类库实际上都是一个模块，无论其是Log4J、React还是Node。通常，开源和非开源的应用都会依赖于一个或多个外部类库，而这种依赖关系又有可能传递到其他类库上。 任何语言都有模块化的思想，比如java的 package， es6的 import/export 等，而js恰好经历了从无到有，而且js模块化规范比较多，AMD，CMD，UMD，以及es6官方的import/export，所以我以js为切入点，讲解模块化是什么。
 
@@ -22,7 +22,7 @@ js诞生的时候是没有模块化规范的，所有的代码都是在一个个
 
 有了模块化，我们通常会这样组织代码：
 
-![&#x56FE;2.2](https://github.com/azl397985856/automate-everything/blob/master/illustrations/图2.2.png)
+![&#x56FE;2.2](https://github.com/azl397985856/automate-everything/master/illustrations/图2.2.png)
 
 我们上层模块总是复用一些小的模块，小的模块依赖更小的模块。构成了一个精妙的层级网络，这很美妙。让我们享受模块的好处吧。
 
@@ -32,7 +32,7 @@ js诞生的时候是没有模块化规范的，所有的代码都是在一个个
 
 SOA和micro service 的基本理念是将应用程序的不同功能单元（称为服务）通过这些服务之间定义良好的接口和契约联系起来。接口是采用中立的方式进行定义的，它应该独立于实现服务的硬件平台、操作系统和编程语言。微服务通过将服务拆分成原子性，并通过服务治理完成系统的功能。它有很多好处，比如不限定语言和实现，大家可以选择合适的技术栈。比如简单性，通过这种拆解，系统从一个复杂系统，编程了若干简单的子系统，无疑降低了系统的复杂度。但是同样有很多缺点，但这并不是本篇文章的重点。 一个典型的微服务系统大概是这样的：
 
-![&#x56FE;2.3](https://github.com/azl397985856/automate-everything/blob/master/illustrations/图2.3.png)
+![&#x56FE;2.3](https://github.com/azl397985856/automate-everything/master/illustrations/图2.3.png)
 
 ## 什么是组件化
 
@@ -62,7 +62,7 @@ SOA和micro service 的基本理念是将应用程序的不同功能单元（称
 
 一个典型的系统是这样的：
 
-![&#x56FE;2.4](https://github.com/azl397985856/automate-everything/blob/master/illustrations/图2.4.png)
+![&#x56FE;2.4](https://github.com/azl397985856/automate-everything/master/illustrations/图2.4.png)
 
 组件化就是基于可重用的目的，将一个大的软件系统按照分离关注点的形式，拆分成多个独立的组件，主要目的就是减少耦合。一个独立的组件可以是一个软件包、web服务、web资源或者是封装了一些函数的模块。这样，独立出来的组件可以单独维护和升级而不会影响到其他的组件。 提到组件化，不得不提web-component。有了web-component代码就可以这么写：
 
@@ -311,7 +311,7 @@ var calSocialInsurance= (province, salary) => {
 
 换句话说，函数只是两种数值之间的关系：输入和输出。尽管每个输入都只会有一个输出，但不同的输入却可以有相同的输出。下图展示了一个合法的从 x 到 y 的函数关系；
 
-![&#x56FE;2.5](https://github.com/azl397985856/automate-everything/blob/master/illustrations/图2.5.png)
+![&#x56FE;2.5](https://github.com/azl397985856/automate-everything/master/illustrations/图2.5.png)
 
 （[http://www.mathsisfun.com/sets/function.html）](http://www.mathsisfun.com/sets/function.html）)
 

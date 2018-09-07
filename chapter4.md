@@ -61,7 +61,7 @@ body
 2. web server 获取到请求流，对请求流进行解析，然后经过一些列处理，可能会查询数据库等， 最终返回响应流到前端。
 3. 浏览器下载文档（content download），并对文档进行解析。解析的过程如下所示：
 
-![&#x56FE;4.1](https://github.com/azl397985856/automate-everything/blob/master/illustrations/图4.1.png)
+![&#x56FE;4.1](https://github.com/azl397985856/automate-everything/master/illustrations/图4.1.png)
 
 知道了浏览器加载网页的步骤，我们就可以从上面每一个环节采取”相对合适“的策略优化加载速度。 比如上面第二步骤会进行dns查找，那么dns查找是需要时间的，如果提前将dns解析并进行缓存，就可以减少这部分性能损失。在比如建立TCP连接之后，保持长连接的情况下可以**串行**发送请求。熟悉异步的朋友肯定知道串行的损耗是很大的，它的加载时间取决于资源加载时间的和。而采取**并行**的方式是所有加载时间中最长的。这个时候我们可以考虑减少http 请求或者使用支持并行方式的协议（比如HTT2协议）。如果大家熟悉浏览器的原理或者仔细观察网络加载图的化，会发现同时加载的资源有一个上限（根据浏览器不同而不同），这是浏览器对于单个域名最大建立连接个数的限制，所以可以考虑增加多个domain来进行优化。类似的还有很多，留给大家思考。但是总结下来只有两点，一是加载优化，即提高资源加载的速度。第二个是渲染优化，即资源拿到之后到解析完成的阶段的优化。
 
@@ -71,7 +71,7 @@ body
 
 浏览器请求服务端的HTML文件，服务端响应字节流给浏览器。浏览器接受到HTML然后根据指定的编码格式进行解码。完成之后会分析HTML内容，将HTML分成一个个token，然后根据不同token生成不同的DOM，最后根据HTML中的层级结构生成DOM树。
 
-![&#x56FE;4.02](https://github.com/azl397985856/automate-everything/blob/master/illustrations/图4.02.png)
+![&#x56FE;4.02](https://github.com/azl397985856/automate-everything/master/illustrations/图4.02.png)
 
 其中要注意的是，如果碰到CSS标签和JavaScript标签（不是async或者defer的js脚本）会暂停渲染，等到资源加载完毕，继续渲染。如果加载了CSS文件（内敛样式同理），会在加载完成CSS之后生成CSSOM。CSSOM的生成过程类似，也是将CSS分成一个个token，然后根据不同token生成CSSOM，CSSOM是用来控制DOM的样式的。最后将DOM和CSSOM合成render tree。
 
@@ -79,17 +79,17 @@ body
 
 为弄清每个对象在网页上的确切大小和位置，浏览器从渲染树的根节点开始进行遍历，根据盒模型和CSS计算规则生成计算样式（chrome中叫computed style），最后调用绘制线程将DOM绘制到页面上。因此优化上面每一个步骤都非常重要。现在我们有了清晰的认识，关键资源HTML是一切的起点，没有HTML后面就没有意义。CSS应该尽快下载并解析，通常我们将css放在head里面优先加载执行，就像app shell的概念一样。我们应该优先给用户呈现最小子集，然后慢慢显示其他的内容，就好像PJPEG（progressive jpeg）一样。如下图是一个渐进式渲染的一个例子（图片来自developers.google.com）：
 
-![&#x56FE;4.03](https://github.com/azl397985856/automate-everything/blob/master/illustrations/图4.03.png)
+![&#x56FE;4.03](https://github.com/azl397985856/automate-everything/master/illustrations/图4.03.png)
 
 我们还没有讨论JavaScript，理论上JavaScript既可以操作CSS，也可以直接修改DOM。浏览器不知道JavaScript的具体内容，因此默认情况下JavaScript会阻止渲染引擎的执行，转而去执行JS线程，如果是外部 JavaScript 文件，浏览器必须停下来，等待从磁盘、缓存或远程服务器获取脚本，这就可能给关键渲染路径增加数十至数千毫秒的延迟，除非遇到带有async或者defer的标签。向script标记添加异步关键字可以指示浏览器在等待脚本可用期间不阻止DOM构建，这样可以显著提升性能。
 
 经过上面的分析，我们知道了关键路径。我们可以借助chrome开发工具查看瀑布图，分析网站的关键路径，分析加载缓慢，影响网站速度的瓶颈点。
 
-![&#x56FE;4.04](https://github.com/azl397985856/automate-everything/blob/master/illustrations/图4.04.png)
+![&#x56FE;4.04](https://github.com/azl397985856/automate-everything/master/illustrations/图4.04.png)
 
 也可以使用一些工具检测，比如前面提到的web performance test，也可以尝试下Lighthouse。
 
-![&#x56FE;4.05](https://github.com/azl397985856/automate-everything/blob/master/illustrations/图4.05.png)
+![&#x56FE;4.05](https://github.com/azl397985856/automate-everything/master/illustrations/图4.05.png)
 
 在后面的小节，我会介绍performance api，大家可以在前端埋点，然后分析网站的性能指标，这也是对其他分析手法的一个重要补充。
 
@@ -196,11 +196,11 @@ domComplete - domLoading
 
 在浏览器console中输入performance.timing
 
-![&#x56FE;4.2](https://github.com/azl397985856/automate-everything/blob/master/illustrations/图4.2.png)
+![&#x56FE;4.2](https://github.com/azl397985856/automate-everything/master/illustrations/图4.2.png)
 
 返回的各字节跟下面的performance流程的各状态一一对应，并返回时间。这个和js中直接new Date\(\).getTime\(\)的时间是不一样的。 这个时间和真实时间没有关系，而且perfermance api精确度更高。
 
-![&#x56FE;4.3](https://github.com/azl397985856/automate-everything/blob/master/illustrations/图4.3.png)
+![&#x56FE;4.3](https://github.com/azl397985856/automate-everything/master/illustrations/图4.3.png)
 
 有了这个performance api 我们可以很方便的计算各项性能指标。如果performamce api ”埋的点“不够我们用，我们还可以自定义一些我们关心的指标，比如请求时间（成功和失败分开统计），较长js操作时间，或者比较重要的功能等。总之，只要我们想要统计的，我们都可以借助performance api 轻松实现。
 
@@ -264,7 +264,7 @@ domComplete - domLoading
 
 监控平台大公司基本都有自己的系统。比如有赞的Hawk，阿里的SunFire。小公司通常都是使用开源的监控系统或者干脆没有。 我之前的公司就没有什么监控平台，最多只是阿里云提供的监控数据而已。所以我在这一方面做了一定的探索。并开始开发[朱雀平台](https://github.com/azl397985856/zhuque)，但是限于精力有限，该计划最后没有最终投入使用，还是蛮可惜的。性能监测的本质是基于监测的数据，提供方便的查询和可视化的统计。并对超过临界值（通常还有持续时长限制）发出警告。 上一节介绍了性能监控平台，提到了性能监控平台的两个组成部分，一个是生产者一个是消费者。 这节介绍如何搭建一个监控平台。那么我先来看下整体的架构
 
-![&#x56FE;4.4](https://github.com/azl397985856/automate-everything/blob/master/illustrations/图4.4.png)
+![&#x56FE;4.4](https://github.com/azl397985856/automate-everything/master/illustrations/图4.4.png)
 
 为了方便讲解，这里只实现一个最简化的模型，读者可以在此基础上进一步划分子系统，比如接入SSO，存储展示分离等。
 
@@ -678,7 +678,7 @@ factorial(1000) // 有可能爆栈，但是现在浏览器做了优化，通常�
 
 我们平时开发的时候，设计师会给我们1x2x3x的图片，这些图片的像素数是不同的。2x的像素数是1x的 2x2=4倍，而3x的像素数高达3x3=9倍。图片直接大了9倍。因此前端使用图片的时候最好不要直接使用3倍图，然后在不同设备上平铺，这种做法会需要依赖浏览器对其进行重新缩放（这还会占用额外的 CPU 资源）并以较低分辨率显示，从而降低性能。 下面的表格数据来自Google Developers
 
-![&#x56FE;4.004](https://github.com/azl397985856/automate-everything/blob/master/illustrations/图4.004.png)
+![&#x56FE;4.004](https://github.com/azl397985856/automate-everything/master/illustrations/图4.004.png)
 
 请注意，在上述所有情况下，显示尺寸只比各屏幕分辨率所需资源“小 10 个 CSS 像素”。不过，多余像素数及其相关开销会随图像显示尺寸的增加而迅速上升！因此，尽管您可能无法保证以精确的显示尺寸提供每一个资源，但您应该确保多余像素数最少，并确保特别是较大资源以尽可能接近其显示尺寸的尺寸提供。
 
@@ -779,6 +779,6 @@ du -s node_modules
 
 ## 参考文献
 
-* [async & performance](https://github.com/getify/You-Dont-Know-JS/blob/master/async%20&%20performance/ch6.md)
+* [async & performance](https://github.com/getify/You-Dont-Know-JS/master/async%20&%20performance/ch6.md)
 * [google performance](https://developers.google.com/web/fundamentals/performance/why-performance-matters/)
 

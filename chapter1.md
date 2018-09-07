@@ -153,13 +153,13 @@ server {
 
 上面的这种方法是非常高效的一种方式，但仍然不是我认为的理想的前后端分离方式。 我认为理想的前后端分离方式是**职能上**，后端提供纯粹的接口，**只需要提供数据**-系统的数据或者根据根据二方库获取数据返回前端，剩下的逻辑前端做。**时间上**，前后端可以并行开发，就像下面这张图一样。
 
-![&#x56FE;4.04](https://github.com/azl397985856/automate-everything/blob/master/illustrations/图4.04.png)
+![&#x56FE;4.04](https://github.com/azl397985856/automate-everything/master/illustrations/图4.04.png)
 
 前后端的约定就像HTML一样，是前置资源，是前提。当这个前置资源定了之后，前端（就像上图的CSS）和后端（就像上图的JS）可以并行加载，它们中全部完成了，页面就可以加载完毕（这里不考虑其他外部资源）。
 
-职能上由于后端提供元数据，前端只需要组合，前后端在逻辑和时间上没有了耦合。先来一张图来描述下： ![&#x56FE;1.1](https://github.com/azl397985856/automate-everything/blob/master/illustrations/图1.1.png)
+职能上由于后端提供元数据，前端只需要组合，前后端在逻辑和时间上没有了耦合。先来一张图来描述下： ![&#x56FE;1.1](https://github.com/azl397985856/automate-everything/master/illustrations/图1.1.png)
 
-如图，后端只是提供原子数据，保证数据稳定输出就可以了，事实上保证系统稳定很多已经是运维再做的事了。前端需要根据需要进行接口整合，服务端渲染，mock数据等工作。 那么整个流程具体是怎么工作的呢？ 可以下面这张图： ![&#x56FE;1.2](https://github.com/azl397985856/automate-everything/blob/master/illustrations/图1.2.png)
+如图，后端只是提供原子数据，保证数据稳定输出就可以了，事实上保证系统稳定很多已经是运维再做的事了。前端需要根据需要进行接口整合，服务端渲染，mock数据等工作。 那么整个流程具体是怎么工作的呢？ 可以下面这张图： ![&#x56FE;1.2](https://github.com/azl397985856/automate-everything/master/illustrations/图1.2.png)
 
 可以看出请求首先留到ngxin（反向代理），nginx判断是否是静态请求（html），如果是则转发到node服务器，node服务器会判断是否需要进行ssr，如果需要则调用后台接口拼装html，将**html和应用状态**一起返回给前端。 如果不需要ssr，则直接返回静态资源，并设置缓存信息。 如果不是静态资源，判断头部信息（比如有一个自定义字段reselect: 'node' \| ''），是否需要请求合并，如果需要则请求到node端，如果不需要直接转发给后端服务器。 ngxin配置大概是这样：
 
@@ -244,7 +244,7 @@ ReactDOM.render(
 
 上面这是对服务端渲染的一个极简实现，那么接口聚合呢？mock呢？ 加入其他功能呢？ 是不是对我们express 本身侵入性太大。 在这里我借鉴了微服务的理念，同时利用第二章节要讲模块化的思想，组织了中间层。 那么究竟我是怎么设计的呢，请继续往下看。
 
-![&#x56FE;1.3](https://github.com/azl397985856/automate-everything/blob/master/illustrations/图1.3.png)
+![&#x56FE;1.3](https://github.com/azl397985856/automate-everything/master/illustrations/图1.3.png)
 
 我们的关注点就是服务集群，如果需要增加集群就直接修改配置即可。 下面基于docker + docker-compose + node + nginx 做一个**中间层系统**。
 
