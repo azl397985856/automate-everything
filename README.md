@@ -29,7 +29,7 @@
 
 [第二章 模块化与组件化](https://github.com/azl397985856/automate-everything/blob/master/chapter2.md)
 
-[第三章 流程自动化](https://rgithub.com/azl397985856/automate-everything/blob/master/chapter3.md)
+[第三章 流程自动化](https://github.com/azl397985856/automate-everything/blob/master/chapter3.md)
 
 [第四章 页面加载性能优化](https://github.com/azl397985856/automate-everything/blob/master/chapter4.md)
 
