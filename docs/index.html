@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>大前端</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Description">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
+</head>
+
+<body>
+  <style>
+    .ring-1 {
+      width: 10px;
+      height: 10px;
+      margin: 0 auto;
+      padding: 10px;
+      border: 7px dashed #4b9cdb;
+      border-radius: 100%;
+    }
+
+    .load-4 .ring-1 {
+      animation: loadingD 1.5s .3s cubic-bezier(.17, .37, .43, .67) infinite;
+    }
+
+    @keyframes loadingD {
+      0 {
+        transform: rotate(0deg);
+      }
+      50% {
+        transform: rotate(180deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .box {
+      /* Choose the animation */
+      animation-name: movingBox;
+      /* The animation’s duration */
+      animation-duration: 1300ms;
+      /* The number of times we want
+      the animation to run */
+      animation-iteration-count: infinite;
+      /* Causes the animation to reverse
+      on every odd iteration */
+      animation-direction: alternate;
+    }
+
+    @keyframes movingBox {
+      0% {
+        transform: translate(0, 0);
+      }
+      100% {
+        transform: translate(300px, 0);
+      }
+    }
+
+    .bling {
+      /* Choose the animation */
+      animation-name: blingBling;
+      /* The animation’s duration */
+      animation-duration: 1300ms;
+      /* The number of times we want
+      the animation to run */
+      animation-iteration-count: infinite;
+      /* Causes the animation to reverse
+      on every odd iteration */
+      animation-direction: alternate;
+    }
+
+    @keyframes blingBling {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+  <div id="app" class="load-4">
+    <div class="ring-1"></div>
+  </div>
+
+  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
+  <script src="//unpkg.com/docsify-pagination/dist/docsify-pagination.min.js"></script>
+  <script src="https://unpkg.com/docsify-copy-code@2"></script>
+
+  <script src="https://cdn.bootcss.com/react/15.6.1/react.js"></script>
+  <script src="https://cdn.bootcss.com/react/15.6.1/react-dom.js"></script>
+  <script src="https://unpkg.com/docsify-demo-box-react@1.0.3/dist/docsify-demo-box-react.min.js"></script>
+
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+
+  <script>
+    function setUpReactPlugin() {
+      const jsResources = '<scr' + 'ipt src="//cdn.bootcss.com/react/15.6.1/react.js"></scr' + 'ipt>\n' +
+        '<scr' + 'ipt src="//cdn.bootcss.com/react/15.6.1/react-dom.js"></scr' + 'ipt>'
+      // DemoBoxReact是docsify-demo-box-react插件导出的全局变量
+      return DemoBoxReact.create(jsResources)
+    }
+    window.$docsify = {
+      name: '大前端',
+      repo: 'https://github.com/azl397985856/animation',
+      disqus: 'shortname',
+      loadSidebar: true,
+      subMaxLevel: 2,
+      search: {
+        maxAge: 86400000, // 过期时间，单位毫秒，默认一天
+        paths: "auto",
+        placeholder: '输入关键字检索',
+        noData: "无结果"
+      },
+      plugins: [setUpReactPlugin()],
+      depth: 6 // 搜索标题的最大程级, 1 - 6
+    }
+  </script>
+
+  <script src="//unpkg.com/docsify/lib/plugins/gitalk.min.js"></script>
+  <script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script>
+    const gitalk = new Gitalk({
+      clientID: '622413b8a74aed739810',
+      clientSecret: 'b737914db44740191f202ed90ff4765409589b15',
+      repo: 'FE',
+      owner: 'lucifer',
+      admin: ['lucifer'],
+      // facebook-like distraction free mode
+      distractionFreeMode: false
+    })
+  </script>
+
+</body>
+
+</html>
