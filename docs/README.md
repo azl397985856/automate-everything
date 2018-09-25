@@ -25,18 +25,18 @@
 - 第三部分将流程自动化。自动化的流程无疑可以减少人力成本，可以提高效率，降低失误率。自动化可以将人们从繁琐的无味的重复劳动中解脱出来。有人说程序员是懒惰的，因为它们经常编写一些可以减少日常工作的工具，从而达到”偷懒“ 的目的。这一章主要讲述流程自动化是一种什么样的感受，如何实现自动化，这一章主要分享我在实际工作中遇到的问题，以及自己在自动化方面作出的思考。
 - 第四部门主要讲述页面加载性能优化。 性能优化一直是一个非常古老，并且非常深奥的问题。说他古老是因为，我们的产品是让用户使用的，良好的用户体验是抓住用户内心的根本，因此性能优化方面，业界做了非常多的探索。说他非常深奥是因为没有任何一种优化手段可以 cover 全部， 这就需要你能够靠你的经验和眼界分辨现实情况，采取合适的优化方法和时机（不要过早优化）。这部分主要讲述 web 性能优化，从用户输入 URL 到页面加载出来，用户进行交互着手分析可以优化的点，并讲述如何发现**系统性能的短板。** 建立性能监控平台也是非常重要的一环，本章也会带你一步步拆解，讲述如何设计并开发一个性能监控平台。
 
-[第一章 前后端分离](https://github.com/azl397985856/automate-everything/blob/master/chapter1.md)
+[第一章 前后端分离](https://github.com/azl397985856/automate-everything/blob/master/docs/chapter1.md)
 
-[第二章 模块化与组件化](https://github.com/azl397985856/automate-everything/blob/master/chapter2.md)
+[第二章 模块化与组件化](https://github.com/azl397985856/automate-everything/blob/master/docs/chapter2.md)
 
-[第三章 流程自动化](https://github.com/azl397985856/automate-everything/blob/master/chapter3.md)
+[第三章 流程自动化](https://github.com/azl397985856/automate-everything/blob/master/docs/chapter3.md)
 
-[第四章 页面加载性能优化](https://github.com/azl397985856/automate-everything/blob/master/chapter4.md)
+[第四章 页面加载性能优化](https://github.com/azl397985856/automate-everything/blob/master/docs/chapter4.md)
 
-[第五章 前端调试](https://github.com/azl397985856/automate-everything/blob/master/chapter5.md)
+[第五章 前端调试](https://github.com/azl397985856/automate-everything/blob/master/docs/chapter5.md)
 
-[第六章 到处都是测试](https://github.com/azl397985856/automate-everything/blob/master/chapter6.md)
+[第六章 到处都是测试](https://github.com/azl397985856/automate-everything/blob/master/docs/chapter6.md)
 
-[附录一 自动化小脚本](https://github.com/azl397985856/automate-everything/blob/master/appendix1.md)
+[附录一 自动化小脚本](https://github.com/azl397985856/automate-everything/blob/master/docs/appendix1.md)
 
-[附录二 参考文献](https://github.com/azl397985856/automate-everything/blob/master/appendix2.md)
+[附录二 参考文献](https://github.com/azl397985856/automate-everything/blob/master/docs/appendix2.md)
