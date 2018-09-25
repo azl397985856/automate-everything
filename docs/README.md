@@ -1,6 +1,6 @@
 # 我的第一本书
 
-为了获得更好的阅读体验，您可以访问[在线版本](https://lucifer.gitbook.io/personal/)
+为了获得更好的阅读体验，您可以访问[在线版本](https://lucifer.ren/automate-everything/)
 
 ## 我为什么要写这本书（序）
 
