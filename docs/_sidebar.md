@@ -3,7 +3,7 @@
 - [模块化和组件化](/chapter2.md)
 - [流程自动化](/chapter3.md)
 - [页面加载性能优化](/chapter4.md)
-- [调试的秘诀于技巧](/chapter5.md)
+- [调试的秘诀与技巧](/chapter5.md)
 - [到处都是测试](/chapter6.md)
 - [附录 1](/appendix1.md)
 - [附录 2](/appendix2.md)
