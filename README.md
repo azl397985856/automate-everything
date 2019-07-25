@@ -61,7 +61,7 @@
 
 之后我的文章同步到微信公众号 脑洞前端 ，您可以关注获取最新的文章，或者和我进行交流。
 
-<img src="./docs/assets/imgs/gongzhonghao.jpeg" width = "50%" height = "50%" alt="gongzhonghao" align=center />
+<img src="https://github.com/azl397985856/fe-interview/raw/master/docs/assets/imgs/gongzhonghao.jpeg" width = "50%" height = "50%" alt="gongzhonghao" align=center />
 
 ## 交流群
 
@@ -69,11 +69,11 @@
 
 ### QQ 群
 
-![qq-group-chat](./docs/assets/imgs/qq-group-chat.png)
+![qq-group-chat](https://github.com/azl397985856/fe-interview/raw/master/docs/assets/imgs/qq-group-chat.png)
 
 ### 微信群
 
-<img src="./docs/assets/imgs/wechat-group-chat.jpeg" width = "50%" height = "50%" alt="JavaScript" align=center />
+<img src="https://github.com/azl397985856/fe-interview/raw/master/docs/assets/imgs/wechat-group-chat.jpeg" width = "50%" height = "50%" alt="JavaScript" align=center />
 
 (由于微信的限制，100个人以上只能邀请加入， 你可以添加我的机器人回复“大前端”拉你进群)
 
