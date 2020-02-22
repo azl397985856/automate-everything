@@ -6,6 +6,10 @@
  git fetch -p && for branch in `git branch -vv | grep ': gone]' | awk '{print $1}'`; do git branch -D $branch; done
 ```
 
+## 其他分支清理脚本
+
+https://gist.github.com/StuPig/06736fbdeede11001aff
+
 ## 复制文件
 
 功能比cp强大
