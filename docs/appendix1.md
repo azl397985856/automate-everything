@@ -18,3 +18,9 @@ https://gist.github.com/StuPig/06736fbdeede11001aff
 rsync -av --progress sourcefolder /destinationfolder --exclude thefoldertoexclude
 ```
 
+## discard all changes【Git】
+
+```bash
+git checkout . && git clean -xdf
+```
+
