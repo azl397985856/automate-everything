@@ -6,7 +6,7 @@
 
 1998 年 ajax 技术的出现，允许客户端脚本发送 HTTP 请求（XMLHTTP），并且局部刷新页面，这种突破性的创新使得 web 高速发展，推动了 web 的发展。随着 HTML5，CSS3，ES6（简称 356）的出现，web 正以前所未有的速度前进，web 工程师从无到有，再到现在 web 工程师被赋予了很多花环，机遇和挑战。也因此前后端不得不逐渐的分离。
 
-这只后又出现了将数据和模板完全分离的技术如 velocity 等，写法上完全改变了。 下面是一个 velocity 的 demo：
+这之后又出现了将数据和模板完全分离的技术如 velocity 等，写法上完全改变了。 下面是一个 velocity 的 demo：
 
 ```java
 import java.io.StringWriter;
