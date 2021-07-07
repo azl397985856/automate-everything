@@ -157,7 +157,7 @@ server {
 
 职能上由于后端提供元数据，前端只需要组合，前后端在逻辑和时间上没有了耦合。先来一张图来描述下： ![图1.1](https://raw.github.com/azl397985856/automate-everything/master/illustrations/图1.1.png)
 
-如图，后端只是提供原子数据，保证数据稳定输出就可以了，事实上保证系统稳定很多已经是运维再做的事了。前端需要根据需要进行接口整合，服务端渲染，mock 数据等工作。 那么整个流程具体是怎么工作的呢？ 可以下面这张图： ![图1.2](https://raw.github.com/azl397985856/automate-everything/master/illustrations/图1.2.png)
+如图，后端只是提供原子数据，保证数据稳定输出就可以了，事实上保证系统稳定很多已经是运维在做的事了。前端需要根据需要进行接口整合，服务端渲染，mock 数据等工作。 那么整个流程具体是怎么工作的呢？ 可以下面这张图： ![图1.2](https://raw.github.com/azl397985856/automate-everything/master/illustrations/图1.2.png)
 
 可以看出请求首先留到 ngxin（反向代理），nginx 判断是否是静态请求（html），如果是则转发到 node 服务器，node 服务器会判断是否需要进行 ssr，如果需要则调用后台接口拼装 html，将**html 和应用状态**一起返回给前端。 如果不需要 ssr，则直接返回静态资源，并设置缓存信息。 如果不是静态资源，判断头部信息（比如有一个自定义字段 reselect: 'node' \| ''），是否需要请求合并，如果需要则请求到 node 端，如果不需要直接转发给后端服务器。 ngxin 配置大概是这样：
 
