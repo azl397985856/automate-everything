@@ -65,6 +65,10 @@
 
 <img src="https://github.com/azl397985856/fe-interview/raw/master/docs/assets/imgs/gongzhonghao.jpeg" width = "50%" height = "50%" alt="gongzhonghao" align=center />
 
+大家也可以加我微信好友进行交流！
+
+![](https://tva1.sinaimg.cn/large/008i3skNly1gx11szd02ej30e80e8dg3.jpg)
+
 ## 交流群
 
 现在还是初级阶段，需要大家的意见和反馈，为了减少沟通成本，我组建了交流群。大家可以扫码进入
